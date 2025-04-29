@@ -1,0 +1,22 @@
+﻿INSERT INTO [dbo].[Clints] ([Id], [FirstName], [LastName], [PhonNumber], [Email], [City], [CurrentTraetmentNumber])
+VALUES
+('123456789', 'Yael', 'Avramsky', '0501234567', 'y0583296331@gmail.com', 'Jerusalem', 3),
+('234567891', 'Rina', 'Levi', '0502345678', 'rina@example.com', 'Jerusalem', 5),
+('345678912', 'Sara', 'Cohen', '0503456789', 'sara@example.com', 'Mevaseret Zion', 2),
+('456789123', 'Maya', 'Gold', '0504567890', 'maya@example.com', 'Maale Adumim', 4),
+('567891234', 'Noa', 'Katz', '0505678901', 'noa@example.com', 'Bet Shemesh', 2),
+('678912345', 'Liat', 'Bar', '0506789012', 'liat@example.com', 'Giv''at Ze''ev', 3),
+('789123456', 'Dana', 'Sharon', '0507890123', 'dana@example.com', 'Jerusalem', 5),
+('891234567', 'Hila', 'Malka', '0508901234', 'hila@example.com', 'Jerusalem', 1),
+('912345678', 'Orly', 'Shavit', '0509012345', 'orly@example.com', 'Jerusalem', 3),
+('123456780', 'Tamar', 'Ben Shitrit', '0509123456', 'tamar@example.com', 'Jerusalem', 4),
+('234567892', 'Ruth', 'Mor', '0509234567', 'ruth@example.com', 'Bet Shemesh', 2),
+('345678913', 'Yaara', 'Sela', '0509345678', 'yaara@example.com', 'Jerusalem', 5),
+('456789124', 'Michal', 'Rosin', '0509456789', 'michal@example.com', 'Mevaseret Zion', 1),
+('567891235', 'Shira', 'Amit', '0509567890', 'shira@example.com', 'Maale Adumim', 3),
+('678912346', 'Efrat', 'Peretz', '0509678901', 'efrat@example.com', 'Giv''at Ze''ev', 4),
+('789123457', 'Galia', 'Rosen', '0509789012', 'galia@example.com', 'Jerusalem', 2),
+('891234568', 'Limor', 'Eldar', '0509890123', 'limor@example.com', 'Jerusalem', 5),
+('912345679', 'Meital', 'Ziv', '0509901234', 'meital@example.com', 'Jerusalem', 1),
+('123456781', 'Orit', 'Koren', '0509912345', 'orit@example.com', 'Maale Adumim', 3),
+('234567893', 'Miriam', 'Bradpiece', '0509923456', 'm8517509@gmail.com', 'Bet Shemesh', 4);
