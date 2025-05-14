@@ -1,6 +1,6 @@
 ﻿using Dal.Api;
-using Dal.models;
-//using Dal.Models;
+
+using Dal.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,7 +50,7 @@ public class ClintsToTreatmentService:IClientsToTreatment
 
     public bool Update(ClientsToTreatment obj)
     {
-        if (obj != null)
+        if (obj == null)
         {
             return false;
         }

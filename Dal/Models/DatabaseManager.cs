@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dal.models;
+namespace Dal.Models;
 
 public partial class DatabaseManager : DbContext
 {
@@ -45,6 +45,9 @@ public partial class DatabaseManager : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("EmployeeID");
+            entity.Property(e => e.TreatmentType)
+                .HasMaxLength(50)
+                .IsUnicode(false);
 
             entity.HasOne(d => d.Employee).WithMany(p => p.AvailableAppointments)
                 .HasForeignKey(d => d.EmployeeId)
@@ -142,6 +145,7 @@ public partial class DatabaseManager : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("EmployeeID");
+            entity.Property(e => e.TreatmentTypeId).HasColumnName("TreatmentTypeID");
 
             entity.HasOne(d => d.Client).WithMany(p => p.UnavailableAppointments)
                 .HasForeignKey(d => d.ClientId)
@@ -152,6 +156,11 @@ public partial class DatabaseManager : DbContext
                 .HasForeignKey(d => d.EmployeeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_UnavailableAppointments_Employees");
+
+            entity.HasOne(d => d.TreatmentType).WithMany(p => p.UnavailableAppointments)
+                .HasForeignKey(d => d.TreatmentTypeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UnavailableAppointments_TreatmentsType");
         });
 
         OnModelCreatingPartial(modelBuilder);

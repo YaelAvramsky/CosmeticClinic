@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Dal.models;
+namespace Dal.Models;
 
 public partial class Client
 {
@@ -16,8 +16,6 @@ public partial class Client
     public string? Email { get; set; }
 
     public string? City { get; set; }
-
-    public int CurrentTraetmentNumber { get; set; }
 
     public virtual ICollection<ClientsToTreatment> ClientsToTreatments { get; set; } = new List<ClientsToTreatment>();
 

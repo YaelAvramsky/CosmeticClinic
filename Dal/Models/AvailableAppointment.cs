@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Dal.models;
+namespace Dal.Models;
 
 public partial class AvailableAppointment
 {
@@ -16,6 +16,8 @@ public partial class AvailableAppointment
     public int Duration { get; set; }
 
     public string EmployeeId { get; set; } = null!;
+
+    public string TreatmentType { get; set; } = null!;
 
     public virtual Employee Employee { get; set; } = null!;
 }

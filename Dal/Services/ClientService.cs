@@ -1,6 +1,5 @@
 ﻿using Dal.Api;
-using Dal.models;
-//using Dal.Models;
+using Dal.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,7 +49,7 @@ public class ClientService : IClient
 
     public bool Update(Client obj)
     {
-        if (obj != null)
+        if (obj == null)
         {
             return false;
         }
@@ -62,7 +61,7 @@ public class ClientService : IClient
             clintToUpdate.PhonNumber = obj.PhonNumber;
             clintToUpdate.Email = obj.Email;
             clintToUpdate.City = obj.City;
-            clintToUpdate.CurrentTraetmentNumber = obj.CurrentTraetmentNumber;
+            //clintToUpdate.CurrentTraetmentNumber = obj.CurrentTraetmentNumber;
             databaseManager.SaveChanges();
             return true;
         }

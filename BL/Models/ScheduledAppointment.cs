@@ -13,4 +13,5 @@ public class ScheduledAppointment
     public string Day { get; set; }
     public string Name { get; set; }
     public int Duration { get; set; }
+    public string TreatmentType { get; set; }
 }

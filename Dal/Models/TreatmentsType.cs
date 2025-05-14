@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Dal.models;
+namespace Dal.Models;
 
 public partial class TreatmentsType
 {
@@ -14,4 +14,6 @@ public partial class TreatmentsType
     public double Price { get; set; }
 
     public virtual ICollection<ClientsToTreatment> ClientsToTreatments { get; set; } = new List<ClientsToTreatment>();
+
+    public virtual ICollection<UnavailableAppointment> UnavailableAppointments { get; set; } = new List<UnavailableAppointment>();
 }

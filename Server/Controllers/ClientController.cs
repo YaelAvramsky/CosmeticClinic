@@ -17,7 +17,7 @@ namespace Server.Controllers
         [HttpGet]
         public ActionResult<List<ScheduledAppointment>> GetAppointments([FromQuery] string name, [FromQuery] string id)
         {
-            return bLScheduledAppointment.AccessPermission(name, id);
+            return bLScheduledAppointment.AccessPermissionAndShowingAllAppointments(name, id);
         }
 
 

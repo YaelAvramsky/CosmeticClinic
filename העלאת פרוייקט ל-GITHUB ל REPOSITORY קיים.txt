@@ -1,0 +1,198 @@
+Microsoft Windows [Version 10.0.19045.5608]
+(c) Microsoft Corporation. כל הזכויות שמורות.
+
+H:\CosmeticClinic>git init
+Initialized empty Git repository in //dsql/DataDsqlStorage/Students/Seminar/Handesaim/HandesaimV/Students/Group1/אברמסקי יעל/CosmeticClinic/.git/
+
+H:\CosmeticClinic>git remote add origin https://github.com/YaelAvramsky/CosmeticClinic.git
+
+H:\CosmeticClinic>git remote -v
+origin  https://github.com/YaelAvramsky/CosmeticClinic.git (fetch)
+origin  https://github.com/YaelAvramsky/CosmeticClinic.git (push)
+
+H:\CosmeticClinic>git pull
+remote: Enumerating objects: 4, done.
+remote: Counting objects: 100% (4/4), done.
+remote: Compressing objects: 100% (3/3), done.
+remote: Total 4 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+Unpacking objects: 100% (4/4), 3.82 KiB | 20.00 KiB/s, done.
+From https://github.com/YaelAvramsky/CosmeticClinic
+ * [new branch]      main       -> origin/main
+There is no tracking information for the current branch.
+Please specify which branch you want to merge with.
+See git-pull(1) for details.
+
+    git pull <remote> <branch>
+
+If you wish to set tracking information for this branch you can do so with:
+
+    git branch --set-upstream-to=origin/<branch> master
+
+
+H:\CosmeticClinic>git status
+On branch master
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .vs/
+        BL/
+        CosmeticClinic.sln
+        Dal/
+        Server/
+        scaffold with -f .txt
+        "~$\327\222\327\231 \327\242\327\225\327\221\327\223\327\231\327\235.docx"
+        "\327\241\327\225\327\222\327\231 \327\242\327\225\327\221\327\223\327\231\327\235.docx"
+        "\327\251\327\220\327\231\327\234\327\252\327\225\327\252/"
+        "\342\200\217\342\200\217\327\236\327\241\327\236\327\232 \327\251\327\234 Microsoft Word \327\227\327\223\327\251.docx"
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+H:\CosmeticClinic>git branch -M main
+
+H:\CosmeticClinic>git branch
+
+H:\CosmeticClinic>git status
+On branch main
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .vs/
+        BL/
+        CosmeticClinic.sln
+        Dal/
+        Server/
+        scaffold with -f .txt
+        "~$\327\222\327\231 \327\242\327\225\327\221\327\223\327\231\327\235.docx"
+        "\327\241\327\225\327\222\327\231 \327\242\327\225\327\221\327\223\327\231\327\235.docx"
+        "\327\251\327\220\327\231\327\234\327\252\327\225\327\252/"
+        "\342\200\217\342\200\217\327\236\327\241\327\236\327\232 \327\251\327\234 Microsoft Word \327\227\327\223\327\251.docx"
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+H:\CosmeticClinic>git pull
+There is no tracking information for the current branch.
+Please specify which branch you want to merge with.
+See git-pull(1) for details.
+
+    git pull <remote> <branch>
+
+If you wish to set tracking information for this branch you can do so with:
+
+    git branch --set-upstream-to=origin/<branch> main
+
+
+H:\CosmeticClinic>git branch --set-upstream-to=origin/main main
+fatal: No commit on branch 'main' yet.
+
+H:\CosmeticClinic>git pull origin main
+From https://github.com/YaelAvramsky/CosmeticClinic
+ * branch            main       -> FETCH_HEAD
+
+H:\CosmeticClinic>git status
+On branch main
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        BL/
+        CosmeticClinic.sln
+        Dal/
+        Server/
+        scaffold with -f .txt
+        "\327\241\327\225\327\222\327\231 \327\242\327\225\327\221\327\223\327\231\327\235.docx"
+        "\327\251\327\220\327\231\327\234\327\252\327\225\327\252/"
+        "\342\200\217\342\200\217\327\236\327\241\327\236\327\232 \327\251\327\234 Microsoft Word \327\227\327\223\327\251.docx"
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+H:\CosmeticClinic>git add .
+
+H:\CosmeticClinic>git commit -m "initial commit"
+[main 6db32ba] initial commit
+ 54 files changed, 1398 insertions(+)
+ create mode 100644 BL/Api/IBL.cs
+ create mode 100644 BL/Api/IBLAppointment.cs
+ create mode 100644 BL/Api/IBLClient.cs
+ create mode 100644 BL/BL.csproj
+ create mode 100644 BL/BLManager.cs
+ create mode 100644 BL/Models/ScheduledAppointment.cs
+ create mode 100644 BL/Services/BLAppointmentService.cs
+ create mode 100644 BL/Services/BLClientService.cs
+ create mode 100644 CosmeticClinic.sln
+ create mode 100644 Dal/Api/IAvailableAppointment.cs
+ create mode 100644 Dal/Api/IClient.cs
+ create mode 100644 Dal/Api/IClientsToTreatment.cs
+ create mode 100644 Dal/Api/ICrud.cs
+ create mode 100644 Dal/Api/IDal.cs
+ create mode 100644 Dal/Api/IEmployee.cs
+ create mode 100644 Dal/Api/ITreatmentsType.cs
+ create mode 100644 Dal/Api/IUnavailableAppointment.cs
+ create mode 100644 Dal/Dal.csproj
+ create mode 100644 Dal/DalManager.cs
+ create mode 100644 Dal/Models/AvailableAppointment.cs
+ create mode 100644 Dal/Models/Client.cs
+ create mode 100644 Dal/Models/ClientsToTreatment.cs
+ create mode 100644 Dal/Models/DatabaseManager.cs
+ create mode 100644 Dal/Models/Employee.cs
+ create mode 100644 Dal/Models/TreatmentsType.cs
+ create mode 100644 Dal/Models/UnavailableAppointment.cs
+ create mode 100644 Dal/Services/AvailableAppointmentService.cs
+ create mode 100644 Dal/Services/ClientService.cs
+ create mode 100644 Dal/Services/ClintsToTreatmentService.cs
+ create mode 100644 Dal/Services/EmployeeService.cs
+ create mode 100644 Dal/Services/TreatmentsTypeService.cs
+ create mode 100644 Dal/Services/UnavailableAppointmentService.cs
+ create mode 100644 Server/Controllers/ClientController.cs
+ create mode 100644 Server/Program.cs
+ create mode 100644 Server/Properties/launchSettings.json
+ create mode 100644 Server/Server.csproj
+ create mode 100644 Server/appsettings.Development.json
+ create mode 100644 Server/appsettings.json
+ create mode 100644 scaffold with -f .txt
+ create mode 100644 "\327\241\327\225\327\222\327\231 \327\242\327\225\327\221\327\223\327\231\327\235.docx"
+ create mode 100644 "\327\251\327\220\327\231\327\234\327\252\327\225\327\252/SQLQuery1.sql"
+ create mode 100644 "\327\251\327\220\327\231\327\234\327\252\327\225\327\252/SQLQuery10.sql"
+ create mode 100644 "\327\251\327\220\327\231\327\234\327\252\327\225\327\252/SQLQuery11.sql"
+ create mode 100644 "\327\251\327\220\327\231\327\234\327\252\327\225\327\252/SQLQuery12.sql"
+ create mode 100644 "\327\251\327\220\327\231\327\234\327\252\327\225\327\252/SQLQuery3.sql"
+ create mode 100644 "\327\251\327\220\327\231\327\234\327\252\327\225\327\252/SQLQuery4.sql"
+ create mode 100644 "\327\251\327\220\327\231\327\234\327\252\327\225\327\252/SQLQuery5.sql"
+ create mode 100644 "\327\251\327\220\327\231\327\234\327\252\327\225\327\252/SQLQuery6.sql"
+ create mode 100644 "\327\251\327\220\327\231\327\234\327\252\327\225\327\252/SQLQuery7.sql"
+ create mode 100644 "\327\251\327\220\327\231\327\234\327\252\327\225\327\252/SQLQuery8.sql"
+ create mode 100644 "\327\251\327\220\327\231\327\234\327\252\327\225\327\252/SQLQuery9.sql"
+ create mode 100644 "\327\251\327\220\327\231\327\234\327\252\327\225\327\252/SQLQueryProblem.sql"
+ create mode 100644 "\327\251\327\220\327\231\327\234\327\252\327\225\327\252/dbo.UnavailableAppointments.sql"
+ create mode 100644 "\342\200\217\342\200\217\327\236\327\241\327\236\327\232 \327\251\327\234 Microsoft Word \327\227\327\223\327\251.docx"
+
+H:\CosmeticClinic>git puah
+git: 'puah' is not a git command. See 'git --help'.
+
+The most similar command is
+        push
+
+H:\CosmeticClinic>git push
+fatal: The current branch main has no upstream branch.
+To push the current branch and set the remote as upstream, use
+
+    git push --set-upstream origin main
+
+To have this happen automatically for branches without a tracking
+upstream, see 'push.autoSetupRemote' in 'git help config'.
+
+
+H:\CosmeticClinic> git push --set-upstream origin main
+Enumerating objects: 69, done.
+Counting objects: 100% (69/69), done.
+Delta compression using up to 16 threads
+Compressing objects: 100% (64/64), done.
+Writing objects: 100% (68/68), 27.53 KiB | 184.00 KiB/s, done.
+Total 68 (delta 24), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (24/24), done.
+To https://github.com/YaelAvramsky/CosmeticClinic.git
+   b92b8c8..6db32ba  main -> main
+branch 'main' set up to track 'origin/main'.
+
+H:\CosmeticClinic>

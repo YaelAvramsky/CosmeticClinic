@@ -1,6 +1,7 @@
 ﻿using BL.Api;
+using BL.Models;
 using Dal.Api;
-using Dal.models;
+using Dal.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,25 +14,31 @@ public class BLAppointmentService : IBLAppointment
 {
     IUnavailableAppointment _unavailableAppointment;
 
-    IClient _client;
+    IClientsToTreatment _clientsToTreatment;
     public BLAppointmentService(IDal dal)
     {
         _unavailableAppointment = dal.UnavailableAppointment;
-        _client = dal.Client;
+        _clientsToTreatment = dal.ClientsToTreatment;
     }
     public void DeleteAppointment(UnavailableAppointment unavailableAppointment)
     {
-        var client = _client.GetAll().FirstOrDefault(c => c.Id.Equals(unavailableAppointment.ClientId));
-        _client.Update(new Client()
+        var clientTreatment = _clientsToTreatment.GetAll().FirstOrDefault(t => t.ClientId.Equals(unavailableAppointment.ClientId) && t.TreatmentTypeId==unavailableAppointment.TreatmentTypeId);
+        if (clientTreatment != null)
         {
-            FirstName = client.FirstName,
-            LastName = client.LastName,
-            PhonNumber = client.PhonNumber,
-            Email = client.Email,
-            City = client.City,
-            CurrentTraetmentNumber = client.CurrentTraetmentNumber - 1,
-        });
+            _clientsToTreatment.Update(new ClientsToTreatment()
+            {
+                Id = clientTreatment.Id,
+                ClientId = clientTreatment.ClientId,
+                TreatmentTypeId = clientTreatment.TreatmentTypeId,
+                CurrentTraetmentNumber = clientTreatment.CurrentTraetmentNumber - 1
+            });
+        }
         _unavailableAppointment.Delete(unavailableAppointment);
+    }
 
+    public List<ScheduledAppointment> ReturnsAllAvailableAppointmentsOnASpecificDate(DateOnly date)
+    {
+
+        return new List<ScheduledAppointment>();
     }
 }
