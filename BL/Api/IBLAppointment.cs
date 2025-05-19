@@ -17,6 +17,8 @@ namespace BL.Api
         List<ScheduledAppointment> ReturnsAllAvailableAppointmentsOnASpecificDate(DateOnly date);
 
         bool MakingAnAppointment(AvailableAppointment availableAppointment, string clientId);
-       
+
+        bool InitializingTheAppointmentLog();
+
     }
 }

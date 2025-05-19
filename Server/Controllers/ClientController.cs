@@ -19,9 +19,6 @@ namespace Server.Controllers
         {
             return bLScheduledAppointment.AccessPermissionAndShowingAllAppointments(name, id);
         }
-
-
-
     }
 }
 
