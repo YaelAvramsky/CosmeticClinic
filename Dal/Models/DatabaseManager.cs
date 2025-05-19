@@ -145,7 +145,9 @@ public partial class DatabaseManager : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("EmployeeID");
-            entity.Property(e => e.TreatmentTypeId).HasColumnName("TreatmentTypeID");
+            entity.Property(e => e.TreatmentType)
+                .HasMaxLength(50)
+                .IsUnicode(false);
 
             entity.HasOne(d => d.Client).WithMany(p => p.UnavailableAppointments)
                 .HasForeignKey(d => d.ClientId)
@@ -156,11 +158,6 @@ public partial class DatabaseManager : DbContext
                 .HasForeignKey(d => d.EmployeeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_UnavailableAppointments_Employees");
-
-            entity.HasOne(d => d.TreatmentType).WithMany(p => p.UnavailableAppointments)
-                .HasForeignKey(d => d.TreatmentTypeId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_UnavailableAppointments_TreatmentsType");
         });
 
         OnModelCreatingPartial(modelBuilder);

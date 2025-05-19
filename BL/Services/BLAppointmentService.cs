@@ -16,19 +16,18 @@ public class BLAppointmentService : IBLAppointment
     IUnavailableAppointment _unavailableAppointment;
     IAvailableAppointment _availableAppointment;
     IClientsToTreatment _clientsToTreatment;
-    IEmployee _employee;
-    ITreatmentsType _treatmentsType;
+    //IEmployee _employee;
     public BLAppointmentService(IDal dal)
     {
         _unavailableAppointment = dal.UnavailableAppointment;
         _clientsToTreatment = dal.ClientsToTreatment;
         _availableAppointment = dal.AvailableAppointment;
-        _employee = dal.Employee;
-        _treatmentsType = dal.TreatmentsType;
+        //_employee = dal.Employee;
+        //_treatmentsType = dal.TreatmentsType;
     }
-    public void DeleteAppointment(UnavailableAppointment unavailableAppointment)
+    public void CancelAnAppointment(UnavailableAppointment unavailableAppointment)
     {
-        var clientTreatment = _clientsToTreatment.GetAll().FirstOrDefault(t => t.ClientId.Equals(unavailableAppointment.ClientId) && t.TreatmentTypeId==unavailableAppointment.TreatmentTypeId);
+        var clientTreatment = _clientsToTreatment.GetAll().FirstOrDefault(t => t.ClientId.Equals(unavailableAppointment.ClientId) && t.TreatmentType.Type==unavailableAppointment.TreatmentType);
         if (clientTreatment != null)
         {
             _clientsToTreatment.Update(new ClientsToTreatment()
@@ -40,6 +39,32 @@ public class BLAppointmentService : IBLAppointment
             });
         }
         _unavailableAppointment.Delete(unavailableAppointment);
+        _availableAppointment.Creat(new AvailableAppointment()
+        {
+            Date = unavailableAppointment.Date,
+            Hour = unavailableAppointment.Hour,
+            Day = unavailableAppointment.Day,
+            Duration = unavailableAppointment.Duration,
+            EmployeeId = unavailableAppointment.EmployeeId,
+            TreatmentType = unavailableAppointment.TreatmentType
+        });
+    }
+
+    public bool MakingAnAppointment(AvailableAppointment availableAppointment,string clientId)
+    {
+        bool create=false,delete = false;
+        create =_unavailableAppointment.Creat(new UnavailableAppointment()
+                {
+                    Date = availableAppointment.Date,
+                    Hour = availableAppointment.Hour,
+                    Day = availableAppointment.Day,
+                    Duration = availableAppointment.Duration,
+                    EmployeeId = availableAppointment.EmployeeId,
+                    ClientId = clientId,
+                    TreatmentType = availableAppointment.TreatmentType
+                });
+        delete=_availableAppointment.Delete(availableAppointment);
+        return create & delete;
     }
     public List<ScheduledAppointment> ReturnsAllAvailableAppointmentsOnASpecificDate(DateOnly date)
     {

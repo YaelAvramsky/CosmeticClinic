@@ -19,11 +19,9 @@ public partial class UnavailableAppointment
 
     public int Duration { get; set; }
 
-    public int TreatmentTypeId { get; set; }
+    public string TreatmentType { get; set; } = null!;
 
     public virtual Client Client { get; set; } = null!;
 
     public virtual Employee Employee { get; set; } = null!;
-
-    public virtual TreatmentsType TreatmentType { get; set; } = null!;
 }

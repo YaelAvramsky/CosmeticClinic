@@ -18,7 +18,7 @@ namespace Server.Controllers
         [HttpDelete]
         public void DeleteAppointment([FromBody] UnavailableAppointment unavailableAppointment)
         {
-             bLAppointment.DeleteAppointment(unavailableAppointment);
+             bLAppointment.CancelAnAppointment(unavailableAppointment);
         }
     }
 }

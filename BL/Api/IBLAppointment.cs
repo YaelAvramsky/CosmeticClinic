@@ -12,10 +12,11 @@ namespace BL.Api
 {
     public interface IBLAppointment
     {
-        void DeleteAppointment(UnavailableAppointment unavailableAppointment);
+        void CancelAnAppointment(UnavailableAppointment unavailableAppointment);
 
         List<ScheduledAppointment> ReturnsAllAvailableAppointmentsOnASpecificDate(DateOnly date);
 
+        bool MakingAnAppointment(AvailableAppointment availableAppointment, string clientId);
        
     }
 }
