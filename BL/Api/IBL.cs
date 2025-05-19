@@ -10,5 +10,6 @@ namespace BL.Api;
 public interface IBL
 {
     //public IDal  Dal { get; }
-    public IBLClient ScheduledAppointment { get; }
+    public IBLClient Client { get; }
+    public IBLAppointment  Appointment { get; }
 }

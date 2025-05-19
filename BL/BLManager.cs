@@ -7,10 +7,13 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace BL;
 
-public class BLManager:IBL
+public class BLManager : IBL
 {
     //public IDal Dal { get; }
-    public IBLClient ScheduledAppointment { get; }
+    public IBLClient Client { get; }
+
+    public IBLAppointment Appointment { get; }
+
     public BLManager()
     {
         ServiceCollection services = new ServiceCollection();
@@ -18,10 +21,12 @@ public class BLManager:IBL
         services.AddSingleton<IDal, DalManager>();
 
         services.AddSingleton<IBLClient, BLClientService>();
+        services.AddSingleton<IBLAppointment, BLAppointmentService>();
 
         ServiceProvider serviceProvider = services.BuildServiceProvider();
 
-        //Dal=serviceProvider.GetService<IDal>();
-        ScheduledAppointment = serviceProvider.GetService<IBLClient>();
+      
+        Client = serviceProvider.GetService<IBLClient>();
+        Appointment= serviceProvider.GetService<IBLAppointment>();
     }
 }

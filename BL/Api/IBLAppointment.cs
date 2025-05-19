@@ -15,6 +15,7 @@ namespace BL.Api
         void DeleteAppointment(UnavailableAppointment unavailableAppointment);
 
         List<ScheduledAppointment> ReturnsAllAvailableAppointmentsOnASpecificDate(DateOnly date);
+
        
     }
 }

@@ -25,8 +25,6 @@ public class BLClientService : IBLClient
         _treatmentsType = dal.TreatmentsType;
         _clientsToTreatment = dal.ClientsToTreatment;
     }
-
-
     public bool ChecksWhetherThePersonExistsInTheSystem(string name, string id)
     {
         var client = _client.GetAll().FirstOrDefault(c => c.Id.Equals(id) && (c.FirstName + " " + c.LastName).Equals(name));

@@ -12,7 +12,7 @@ namespace Server.Controllers
         IBLClient bLScheduledAppointment;
         public ClientController(IBL bL)
         {
-            bLScheduledAppointment = bL.ScheduledAppointment;
+            bLScheduledAppointment = bL.Client;
         }
         [HttpGet]
         public ActionResult<List<ScheduledAppointment>> GetAppointments([FromQuery] string name, [FromQuery] string id)
