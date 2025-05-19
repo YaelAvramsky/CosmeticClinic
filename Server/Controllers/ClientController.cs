@@ -24,7 +24,6 @@ namespace Server.Controllers
         {
             return bLScheduledAppointment.AddNewClient(Id, FirstName, LastName, PhonNumber, Email, City);
         }
-
         [HttpGet("check-treatment-package")]
         public ActionResult<bool> getClientTreatmentPackage(string clientId, string treatmentType)
         {
