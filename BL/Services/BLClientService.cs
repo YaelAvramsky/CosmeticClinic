@@ -26,12 +26,15 @@ public class BLClientService : IBLClient
         _clientsToTreatment = dal.ClientsToTreatment;
     }
 
-
-    public bool ChecksWhetherThePersonExistsInTheSystem(string name, string id)
+    public bool ChecksWhetherThePersonIsAClient(string name, string id)
     {
         var client = _client.GetAll().FirstOrDefault(c => c.Id.Equals(id) && (c.FirstName + " " + c.LastName).Equals(name));
         if (client != null)
             return true;
+        return false;
+    }
+    public bool ChecksWhetherThePersonIsAEmployee(string name, string id)
+    {
         var employee = _employee.GetAll().FirstOrDefault(employee => employee.Id.Equals(id) && (employee.FirstName + " " + employee.LastName).Equals(name));
         if (employee != null)
             return true;
@@ -40,53 +43,40 @@ public class BLClientService : IBLClient
     public List<ScheduledAppointment> AccessPermissionAndShowingAllAppointments(string name, string id)
     {
         List<ScheduledAppointment> result = new List<ScheduledAppointment>();
-        var client = _client.GetAll().FirstOrDefault(c => c.Id.Equals(id) && (c.FirstName + " " + c.LastName).Equals(name));
-        if (client != null)
+
+        if (ChecksWhetherThePersonIsAClient(name, id))
         {
             var clientAppointments = _unavailableAppointment.GetAll()
                 .Where(a => a.ClientId.Equals(id))
-                .Select(a =>
+                .Select(a => new ScheduledAppointment()
                 {
-                    var employee = _employee.GetAll().FirstOrDefault(e => e.Id.Equals(a.EmployeeId));
-                    var treatmentType = _treatmentsType.GetAll().FirstOrDefault(t => t.Id.Equals(a.TreatmentTypeId));
-                    return new ScheduledAppointment()
-                    {
-                        Date = a.Date,
-                        Hour = a.Hour,
-                        Day = a.Day,
-                        Duration = a.Duration,
-                        Name = employee != null ? $"{employee.FirstName} {employee.LastName}" : string.Empty,
-                        TreatmentType = treatmentType != null ? $"{treatmentType.Type}" : string.Empty
+                    Date = a.Date,
+                    Hour = a.Hour,
+                    Day = a.Day,
+                    Duration = a.Duration,
+                    Name =a.Employee!=null? $"{a.Employee.FirstName} {a.Employee.LastName}":string.Empty,
+                    TreatmentType = a.TreatmentType
+                }).ToList(); 
 
-                    };
-                }).ToList();
-
-            result.AddRange(clientAppointments);
+            result.AddRange(clientAppointments); 
         }
         else
-        {
-            var employee = _employee.GetAll().FirstOrDefault(employee => employee.Id.Equals(id) && (employee.FirstName + " " + employee.LastName).Equals(name));
-            if (employee != null)
-            {
-                var EmployeeAppointments = _unavailableAppointment.GetAll()
-                    .Where(a => a.EmployeeId.Equals(id))
-                    .Select(a =>
-                    {
-                        var client = _client.GetAll().FirstOrDefault(c => c.Id.Equals(a.ClientId));
-                        var treatmentType = _treatmentsType.GetAll().FirstOrDefault(t => t.Id.Equals(a.TreatmentTypeId));
-                        return new ScheduledAppointment()
-                        {
-                            Date = a.Date,
-                            Hour = a.Hour,
-                            Day = a.Day,
-                            Duration = a.Duration,
-                            Name = client != null ? $"{client.FirstName} {client.LastName}" : string.Empty,
-                            TreatmentType = treatmentType != null ? $"{treatmentType.Type}" : string.Empty
-                        };
-                    }).ToList();
+        { 
+            var EmployeeAppointments = _unavailableAppointment.GetAll()
+                .Where(a => a.EmployeeId.Equals(id))
+                .Select(a =>                               
+                     new ScheduledAppointment()
+                     {
+                         Date = a.Date,
+                         Hour = a.Hour,
+                         Day = a.Day,
+                         Duration = a.Duration,
+                         Name = a.Client != null ? $"{a.Client.FirstName} {a.Client.LastName}" : string.Empty,
+                         TreatmentType = a.TreatmentType
 
-                result.AddRange(EmployeeAppointments);
-            }
+                     }).ToList();
+
+            result.AddRange(EmployeeAppointments);
         }
         return result;
     }
@@ -133,5 +123,6 @@ public class BLClientService : IBLClient
         }
         return false;
     }
+
  
 }
