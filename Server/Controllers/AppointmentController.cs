@@ -1,4 +1,7 @@
 ﻿using BL.Api;
+using BL.Models;
+using BL.Services;
+using Dal.Api;
 using Dal.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,5 +23,17 @@ namespace Server.Controllers
         {
              bLAppointment.CancelAnAppointment(unavailableAppointment);
         }
+
+        [HttpPost("make-appointment")]
+        public ActionResult<bool> MakeAppointment([FromBody] AvailableAppointment availableAppointment, string clientId)
+        {
+            return bLAppointment.MakeAnAppointment(availableAppointment, clientId);
+        }
+        [HttpGet("available-appointments")]
+        public ActionResult<List<ScheduledAppointment>> GetAvalableAppointment(DateOnly date)
+        {
+            return bLAppointment.ReturnsAllAvailableAppointmentsOnASpecificDate(date);
+        }
     }
+ 
 }

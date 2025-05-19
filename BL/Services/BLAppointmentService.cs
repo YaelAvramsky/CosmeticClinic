@@ -50,7 +50,7 @@ public class BLAppointmentService : IBLAppointment
         });
     }
 
-    public bool MakingAnAppointment(AvailableAppointment availableAppointment,string clientId)
+    public bool MakeAnAppointment(AvailableAppointment availableAppointment,string clientId)
     {
         bool create=false,delete = false;
         create =_unavailableAppointment.Creat(new UnavailableAppointment()
