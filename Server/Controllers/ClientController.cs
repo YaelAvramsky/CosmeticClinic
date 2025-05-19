@@ -19,6 +19,26 @@ namespace Server.Controllers
         {
             return bLScheduledAppointment.AccessPermissionAndShowingAllAppointments(name, id);
         }
+        [HttpPost]
+        public ActionResult<bool> AddNewClient([FromQuery] string Id, [FromQuery] string FirstName, [FromQuery] string LastName, [FromQuery] string PhonNumber, [FromQuery] string Email, [FromQuery] string City)
+        {
+            return bLScheduledAppointment.AddNewClient(Id, FirstName, LastName, PhonNumber, Email, City);
+        }
+        [HttpGet("check-treatment-package")]
+        public ActionResult<bool> getClientTreatmentPackage(string clientId, string treatmentType)
+        {
+            return bLScheduledAppointment.ChecksIfTheClientHasATreatmentPackage(clientId, treatmentType);
+        }
+        [HttpGet("check-client")]
+        public ActionResult<bool> GetThePersonsStatusClient(string name, string id)
+        {
+            return bLScheduledAppointment.ChecksWhetherThePersonIsAClient(name, id);
+        }
+        [HttpGet("check-employee")]
+        public ActionResult<bool> GetThePersonsStatusEmployee(string name, string id)
+        {
+            return bLScheduledAppointment.ChecksWhetherThePersonIsAEmployee(name, id);
+        }
     }
 }
 
