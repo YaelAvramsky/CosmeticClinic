@@ -1,0 +1,86 @@
+-- Clear previous appointments for fresh initialization
+DELETE FROM [dbo].[AvailableAppointments];
+DBCC CHECKIDENT ('[dbo].[AvailableAppointments]', RESEED, 0);
+
+-- Treatment durations table
+DECLARE @Durations TABLE (
+    Specialization VARCHAR(50),
+    Duration INT
+);
+INSERT INTO @Durations VALUES
+('Facials', 30),
+('Laser hair removal', 30),
+('Manicure', 15),
+('Pedicure', 20),
+('Anti-aging treatments', 45),
+('Acne treatments', 20),
+('Body peeling', 45),
+('Microdermabrasion', 30);
+
+-- Numbers table for generating slots
+;WITH Numbers AS (
+    SELECT 1 AS n
+    UNION ALL
+    SELECT n + 1 FROM Numbers WHERE n < 100
+)
+-- Today's date
+, Dates AS (
+    SELECT CAST(GETDATE() AS DATE) AS [Date]
+)
+-- Employees with row number for shift rotation
+, EmployeeShift AS (
+    SELECT
+        E.Id,
+        E.Specialization,
+        ROW_NUMBER() OVER (ORDER BY E.Id) AS RowNum,
+        COUNT(*) OVER () AS TotalEmployees
+    FROM [dbo].[Employees] E
+)
+-- Schedule based on all business rules
+, Schedule AS (
+    SELECT
+        D.[Date],
+        DATENAME(WEEKDAY, D.[Date]) AS [DayName],
+        E.Id AS EmployeeID,
+        E.Specialization,
+        CASE
+            WHEN DATENAME(WEEKDAY, D.[Date]) = 'Friday' THEN 'Morning'
+            WHEN DATENAME(WEEKDAY, D.[Date]) = 'Saturday' THEN 'Closed'
+            WHEN ((E.RowNum + DATEPART(DAY, D.[Date])) % 2) = 0 THEN 'Morning'
+            ELSE 'Afternoon'
+        END AS Shift
+    FROM Dates D
+    CROSS JOIN EmployeeShift E
+)
+-- Insert new appointments for today only
+INSERT INTO [dbo].[AvailableAppointments]
+    ([Date], [Hour], [Day], [Duration ], [EmployeeID], [TreatmentType])
+SELECT
+    S.[Date],
+    CAST(
+        CASE
+            WHEN S.[DayName] = 'Friday'
+                THEN DATEADD(MINUTE, (N.n - 1) * D.Duration, '09:00')
+            ELSE DATEADD(MINUTE, (N.n - 1) * D.Duration,
+                CASE WHEN S.Shift = 'Morning' THEN '09:00' ELSE '15:00' END)
+        END
+    AS TIME(7)) AS [Hour],
+    S.[DayName],
+    D.Duration,
+    S.EmployeeID,
+    S.Specialization
+FROM Schedule S
+INNER JOIN @Durations D ON D.Specialization = S.Specialization
+INNER JOIN Numbers N
+    ON (
+        -- Friday: 9:00-12:00 (3 hours = 180 min)
+        S.[DayName] = 'Friday' AND N.n <= FLOOR(180.0 / D.Duration)
+    )
+    OR (
+        -- Other days: 6 hours per shift (360 min)
+        S.[DayName] NOT IN ('Friday', 'Saturday')
+        AND S.Shift IN ('Morning', 'Afternoon')
+        AND N.n <= FLOOR(360.0 / D.Duration)
+    )
+WHERE S.[DayName] <> 'Saturday'
+OPTION (MAXRECURSION 0);
