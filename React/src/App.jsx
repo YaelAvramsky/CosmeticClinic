@@ -7,6 +7,7 @@ import LoginPage from './components/LoginPage'
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
 import HomePage from './components/HomePage'
 import About from './components/About'
+import AllAppointments from './components/AllAppointments'
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
             <NavLink to="/" activeclassname="active">Home</NavLink>
             <NavLink to="/about" activeclassname="active">About</NavLink>
             <NavLink to="/Login" activeclassname="active">Login</NavLink>
+            
           </nav>
         </div>
         <div className="container">
@@ -28,6 +30,7 @@ function App() {
             <Route path='/' element={<HomePage />} />
             <Route path='/about' element={<About />} />
             <Route path='/Login' element={<LoginPage />} />
+            <Route path='/appointments' element={<AllAppointments />} />
           </Routes>
         </div>
       </BrowserRouter>
