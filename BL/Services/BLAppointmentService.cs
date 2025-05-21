@@ -16,14 +16,11 @@ public class BLAppointmentService : IBLAppointment
     IUnavailableAppointment _unavailableAppointment;
     IAvailableAppointment _availableAppointment;
     IClientsToTreatment _clientsToTreatment;
-    //IEmployee _employee;
     public BLAppointmentService(IDal dal)
     {
         _unavailableAppointment = dal.UnavailableAppointment;
         _clientsToTreatment = dal.ClientsToTreatment;
         _availableAppointment = dal.AvailableAppointment;
-        //_employee = dal.Employee;
-        //_treatmentsType = dal.TreatmentsType;
     }
     public void CancelAnAppointment(UnavailableAppointment unavailableAppointment)
     {
