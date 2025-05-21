@@ -18,7 +18,7 @@ namespace BL.Api
 
         bool MakingAnAppointment(AvailableAppointment availableAppointment, string clientId);
 
-        bool InitializingTheAppointmentLog();
+        void InitializeAppointmentSchedule();
 
     }
 }

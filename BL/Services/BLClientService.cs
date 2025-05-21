@@ -46,8 +46,9 @@ public class BLClientService : IBLClient
 
         if (ChecksWhetherThePersonIsAClient(name, id))
         {
-            var clientAppointments = _unavailableAppointment.GetAll()
-                .Where(a => a.ClientId.Equals(id))
+            var clientAppointments = _unavailableAppointment.GetAll();
+
+            result=clientAppointments.Where(a => a.ClientId.Equals(id))
                 .Select(a => new ScheduledAppointment()
                 {
                     Date = a.Date,
@@ -58,7 +59,7 @@ public class BLClientService : IBLClient
                     TreatmentType = a.TreatmentType
                 }).ToList(); 
 
-            result.AddRange(clientAppointments); 
+           // result.AddRange(clientAppointments); 
         }
         else
         { 

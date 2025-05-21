@@ -10,9 +10,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using Dal.Models;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
+using System.Globalization;
+using System.Linq;
 namespace BL.Services;
 
 public class BLAppointmentService : IBLAppointment
@@ -53,6 +55,8 @@ public class BLAppointmentService : IBLAppointment
         });
     }
 
+  
+
     public bool MakingAnAppointment(AvailableAppointment availableAppointment,string clientId)
     {
         bool create=false,delete = false;
@@ -83,146 +87,407 @@ public class BLAppointmentService : IBLAppointment
               TreatmentType =  a.TreatmentType 
           }).ToList();
     }
-    public bool InitializingTheAppointmentLog()
-    {
-        //    //Calendar calendar = CultureInfo.CurrentCulture.Calendar;
+    //public bool InitializingTheAppointmentLog()
+    //{
+    //    //Calendar calendar = CultureInfo.CurrentCulture.Calendar;
 
-        //    //// דוגמה להוצאת תאריך
-        //    //DateTime today = DateTime.Now;
-        //    //int year = calendar.GetYear(today);
-        //    //int month = calendar.GetMonth(today);
-        //    //int day = calendar.GetDayOfMonth(today);
-        //    //int hour = calendar.GetHour(today);
-        //    //int minute = calendar.GetMinute(today);
-        //    //int second = calendar.GetSecond(today);
+    //    //// דוגמה להוצאת תאריך
+    //    //DateTime today = DateTime.Now;
+    //    //int year = calendar.GetYear(today);
+    //    //int month = calendar.GetMonth(today);
+    //    //int day = calendar.GetDayOfMonth(today);
+    //    //int hour = calendar.GetHour(today);
+    //    //int minute = calendar.GetMinute(today);
+    //    //int second = calendar.GetSecond(today);
 
 
-        //    //Console.WriteLine($"Today's date: {day}/{month}/{year}");
+    //    //Console.WriteLine($"Today's date: {day}/{month}/{year}");
 
-        //    //// קביעת תאריך מסוים
-        //    //DateTime specificDate = new DateTime(2023, 10, 15); // לדוגמה, 15 באוקטובר 2023
+    //    //// קביעת תאריך מסוים
+    //    //DateTime specificDate = new DateTime(2023, 10, 15); // לדוגמה, 15 באוקטובר 2023
 
-        //    //// קבלת היום בשבוע
-        //    //DayOfWeek dayOfWeek = specificDate.DayOfWeek;
+    //    //// קבלת היום בשבוע
+    //    //DayOfWeek dayOfWeek = specificDate.DayOfWeek;
 
-        //    //Console.WriteLine($"The day of the week for {specificDate.ToShortDateString()} is {dayOfWeek}");
-        //    DateTime startDate = DateTime.Today; 
-        //    DateTime endDate = startDate.AddYears(1);
-        //    for (DateTime date = startDate; date < endDate; date = date.AddDays(1))
-        //    {
-        //        foreach (var employee in _employee.GetAll())
-        //        {
-        //            _availableAppointment.Creat(new AvailableAppointment()
-        //            {
-        //                Date = DateOnly.FromDateTime(date),
-        //                Hour = TimeOnly.FromDateTime(date),
-        //                Day=date.DayOfWeek.ToString(),
-        //            });
+    //    //Console.WriteLine($"The day of the week for {specificDate.ToShortDateString()} is {dayOfWeek}");
+    //    DateTime startDate = DateTime.Today; 
+    //    DateTime endDate = startDate.AddYears(1);
+    //    for (DateTime date = startDate; date < endDate; date = date.AddDays(1))
+    //    {
+    //        foreach (var employee in _employee.GetAll())
+    //        {
+    //            _availableAppointment.Creat(new AvailableAppointment()
+    //            {
+    //                Date = DateOnly.FromDateTime(date),
+    //                Hour = TimeOnly.FromDateTime(date),
+    //                Day=date.DayOfWeek.ToString(),
+    //            });
 
-        //        }
-        //    }
-        return true;
-    }
+    //        }
+    //    }
+    //    return true;
+    //}
 
-    private string connectionString = "your_connection_string_here"; // Replace with your actual connection string
+    /// <summary>
+    /// מילוי רשימת תורים
+    /// </summary>
+    //public void InitializeAppointmentSchedule()//תקבל את הטווח כפרמטר
+    //{
+    //    //DateTime _startDate
+
+
+    //    DateTime startDate = DateTime.Today;
+    //    DateTime endDate = startDate.AddMonths(6);
+
+    //    // Define working hours
+    //    TimeSpan morningStart = new TimeSpan(9, 0, 0);
+    //    TimeSpan morningEnd = new TimeSpan(15, 0, 0);
+    //    TimeSpan afternoonStart = new TimeSpan(15, 0, 0);
+    //    TimeSpan afternoonEnd = new TimeSpan(21, 0, 0);
+
+    //    // Define treatment durations
+    //    Dictionary<string, int> treatmentDurations = new Dictionary<string, int>
+    //    {
+    //        { "Facials", 30 },
+    //        { "Laser hair removal", 30 },
+    //        { "Manicure", 15 },
+    //        { "Pedicure", 20 },
+    //        { "Anti-aging treatments", 45 },
+    //        { "Acne treatments", 20 },
+    //        { "Body peeling", 45 },
+    //        { "Microdermabrasion", 30 }
+    //    };
+
+    //        // Retrieve employees
+    //        var employees = new List<(string Id, string TreatmentType)>();
+    //        employees=_employee.GetAll().Select(e => ( e.Id,e.Specialization)).ToList();
+
+    //        // Split employees into morning and afternoon shifts
+    //        int halfCount = employees.Count / 2;
+    //        var morningEmployees = employees.GetRange(0, halfCount);
+    //        var afternoonEmployees = employees.GetRange(halfCount, employees.Count - halfCount);
+
+    //        // Schedule appointments for each day
+    //        for (DateTime date = startDate; date < endDate; date = date.AddDays(1))
+    //        {
+    //            string dayOfWeek = date.DayOfWeek.ToString();
+
+    //            // Schedule morning appointments
+    //            ScheduleAppointments( morningEmployees, date, morningStart, morningEnd, dayOfWeek, treatmentDurations);
+
+    //            // Schedule afternoon appointments
+    //            ScheduleAppointments( afternoonEmployees, date, afternoonStart, afternoonEnd, dayOfWeek, treatmentDurations);
+    //        }
+    //    }
+    ////}
+
+    //private void ScheduleAppointments(List<(string Id, string TreatmentType)> employees, DateTime date, TimeSpan start, TimeSpan end, string dayOfWeek, Dictionary<string, int> treatmentDurations)
+    //{
+    //    foreach (var employee in employees)
+    //    {
+    //        TimeSpan currentTime = start;
+    //        while (currentTime < end)
+    //        {
+    //            // Get the treatment duration for the current employee's specialization
+    //            if (treatmentDurations.TryGetValue(employee.TreatmentType, out int duration))
+    //            {
+    //                // Check if the appointment fits within the working hours
+    //                if (currentTime.Add(TimeSpan.FromMinutes(duration)) <= end)
+    //                {
+    //                    _availableAppointment.Creat(new AvailableAppointment() { Date = DateOnly.FromDateTime(date), Hour = new TimeOnly(currentTime.Hours, currentTime.Minutes, currentTime.Seconds), Day = dayOfWeek, Duration = duration, EmployeeId = employee.Id, TreatmentType = employee.TreatmentType });
+    //                }
+    //                // Move to the next appointment slot
+    //                currentTime = currentTime.Add(TimeSpan.FromMinutes(duration));
+    //            }
+    //            else 
+    //            {
+    //                break;
+    //            }
+
+    //        }
+    //    }
+    //}
+
+    //public void InitializeAppointmentSchedule()
+    //{
+    //    DateTime startDate = DateTime.Today;
+    //    DateTime endDate = startDate.AddMonths(6);
+
+    //    // Define working hours
+    //    TimeSpan morningStart = new TimeSpan(9, 0, 0);
+    //    TimeSpan morningEnd = new TimeSpan(15, 0, 0);
+    //    TimeSpan afternoonStart = new TimeSpan(15, 0, 0);
+    //    TimeSpan afternoonEnd = new TimeSpan(21, 0, 0);
+
+    //    // Define treatment durations
+    //    Dictionary<string, int> treatmentDurations = new Dictionary<string, int>
+    //{
+    //    { "Facials", 30 },
+    //    { "Laser hair removal", 30 },
+    //    { "Manicure", 15 },
+    //    { "Pedicure", 20 },
+    //    { "Anti-aging treatments", 45 },
+    //    { "Acne treatments", 20 },
+    //    { "Body peeling", 45 },
+    //    { "Microdermabrasion", 30 }
+    //};
+
+    //    // Retrieve employees
+    //    var employees = _employee.GetAll().Select(e => (e.Id, e.Specialization)).ToList();
+
+    //    // Split employees into morning and afternoon shifts
+    //    int halfCount = employees.Count / 2;
+    //    var morningEmployees = employees.GetRange(0, halfCount);
+    //    var afternoonEmployees = employees.GetRange(halfCount, employees.Count - halfCount);
+
+    //    // Schedule appointments for each day
+    //    for (DateTime date = startDate; date < endDate; date = date.AddDays(1))
+    //    {
+    //        string dayOfWeek = date.DayOfWeek.ToString();
+
+    //        // Schedule morning appointments
+    //        ScheduleAppointments(morningEmployees, date, morningStart, morningEnd, dayOfWeek, treatmentDurations);
+
+    //        // Schedule afternoon appointments
+    //        ScheduleAppointments(afternoonEmployees, date, afternoonStart, afternoonEnd, dayOfWeek, treatmentDurations);
+    //    }
+    //}
+
+    //private void ScheduleAppointments(List<(string Id, string TreatmentType)> employees, DateTime date, TimeSpan start, TimeSpan end, string dayOfWeek, Dictionary<string, int> treatmentDurations)
+    //{
+    //    foreach (var employee in employees)
+    //    {
+    //        TimeSpan currentTime = start;
+
+    //        while (currentTime < end)
+    //        {
+    //            // Get the treatment duration for the current employee's specialization
+    //            if (treatmentDurations.TryGetValue(employee.TreatmentType, out int duration))
+    //            {
+    //                // Check if the appointment fits within the working hours
+    //                if (currentTime.Add(TimeSpan.FromMinutes(duration)) <= end)
+    //                {
+    //                    _availableAppointment.Creat(new AvailableAppointment()
+    //                    {
+    //                        Date = DateOnly.FromDateTime(date),
+    //                        Hour = new TimeOnly(currentTime.Hours, currentTime.Minutes, currentTime.Seconds),
+    //                        Day = dayOfWeek,
+    //                        Duration = duration,
+    //                        EmployeeId = employee.Id,
+    //                        TreatmentType = employee.TreatmentType
+    //                    });
+    //                    // Move to the next appointment slot
+    //                    currentTime = currentTime.Add(TimeSpan.FromMinutes(duration));
+    //                }
+    //                else
+    //                {
+    //                    break; // Exit if the appointment cannot fit
+    //                }
+    //            }
+    //            else
+    //            {
+    //                break; // Exit if the treatment type is not found
+    //            }
+    //        }
+    //    }
+    //}
+
+    //public void InitializeAppointmentSchedule()
+    //{
+    //    throw new NotImplementedException();
+    //}
+
+
+
+
+    //public void InitializeAppointmentSchedule()
+    //{
+    //    // 1. מחיקת תורים קיימים (כמו DELETE ו-RESEED)
+    //    //db.AvailableAppointments.RemoveRange(db.AvailableAppointments);
+    //    //db.SaveChanges();
+    //    // אין כאן RESEED, כי זה פנימי ל-SQL, אך ה-Id יתאפס אוטומטית במזהה זהות רגיל.
+
+    //    // 2. טבלת משך טיפולים
+    //    var durations = new List<(string Specialization, int Duration)>
+    //    {
+    //        ("Facials", 30),
+    //        ("Laser hair removal", 30),
+    //        ("Manicure", 15),
+    //        ("Pedicure", 20),
+    //        ("Anti-aging treatments", 45),
+    //        ("Acne treatments", 20),
+    //        ("Body peeling", 45),
+    //        ("Microdermabrasion", 30),
+    //    };
+
+    //    // 3. הגדרת היום הנוכחי
+    //    DateOnly today = DateOnly.FromDateTime(DateTime.Now);
+    //    var dayName = CultureInfo.InvariantCulture.DateTimeFormat.GetDayName(today.DayOfWeek);
+
+    //    // 4. רשימת עובדים (כולל RowNum לסיבוב משמרות)
+    //    var employees = _employee.GetAll()
+    //        .Select((e, idx) => new
+    //        {
+    //            Employee = e,
+    //            RowNum = idx + 1
+    //        })
+    //        .ToList();
+
+    //    int totalEmployees = employees.Count;
+
+    //    // 5. יצירת משמרות לכל עובד לפי החוקים
+    //    var schedule = new List<(string Shift, Employee Employee, string Specialization)>();
+
+    //    foreach (var emp in employees)
+    //    {
+    //        string shift;
+    //        if (dayName == "Friday")
+    //            shift = "Morning";
+    //        else if (dayName == "Saturday")
+    //            shift = "Closed";
+    //        else
+    //            shift = ((emp.RowNum + today.Day) % 2 == 0) ? "Morning" : "Afternoon";
+
+    //        schedule.Add((shift, emp.Employee, emp.Employee.Specialization));
+    //    }
+
+    //    // 6. יצירת תורים זמינים לכל עובד ולכל טיפול (לפי משמרת וחוקי שעות)
+    //    //var newAppointments = new List<AvailableAppointment>();
+
+    //    foreach (var sch in schedule)
+    //    {
+    //        // דילוג על עובדים במשמרת סגורה או שבת
+    //        if (sch.Shift == "Closed" || dayName == "Saturday") continue;
+
+    //        var duration = durations.FirstOrDefault(d => d.Specialization == sch.Specialization).Duration;
+    //        if (duration == 0) continue; // אין משך טיפול מתאים
+
+    //        int maxSlots = 0;
+    //        TimeSpan start;
+    //        if (dayName == "Friday")
+    //        {
+    //            maxSlots = (int)Math.Floor(180.0 / duration); // 3 שעות
+    //            start = new TimeSpan(9, 0, 0);
+    //        }
+    //        else // שאר השבוע
+    //        {
+    //            if (sch.Shift == "Morning")
+    //                start = new TimeSpan(9, 0, 0);
+    //            else
+    //                start = new TimeSpan(15, 0, 0);
+    //            maxSlots = (int)Math.Floor(360.0 / duration); // 6 שעות
+    //        }
+
+    //        for (int n = 0; n < maxSlots; n++)
+    //        {
+    //            var hour = start.Add(TimeSpan.FromMinutes(n * duration));
+    //            _availableAppointment.Creat(new AvailableAppointment
+    //            {
+    //                Date = today,
+    //                Hour = TimeOnly.FromTimeSpan(hour),
+    //                Day = dayName,
+    //                Duration = duration,
+    //                EmployeeId = sch.Employee.Id,
+    //                TreatmentType = sch.Specialization
+    //            });
+    //        }
+    //    }
+
+    //   // _availableAppointment.GetAll().AddRange(newAppointments);
+    //    //db.SaveChanges();
+    //}
 
     public void InitializeAppointmentSchedule()
     {
-        DateTime startDate = DateTime.Today;
-        DateTime endDate = startDate.AddYears(1);
+        // טיפול אחד בלבד: לא מוחקים תורים קיימים!
 
-        // Define working hours
-        TimeSpan morningStart = new TimeSpan(9, 0, 0);
-        TimeSpan morningEnd = new TimeSpan(15, 0, 0);
-        TimeSpan afternoonStart = new TimeSpan(15, 0, 0);
-        TimeSpan afternoonEnd = new TimeSpan(21, 0, 0);
-
-        // Define treatment durations
-        Dictionary<string, int> treatmentDurations = new Dictionary<string, int>
-        {
-            { "Facials", 30 },
-            { "Laser hair removal", 30 },
-            { "Manicure", 15 },
-            { "Pedicure", 20 },
-            { "Anti-aging treatments", 45 },
-            { "Acne treatments", 20 },
-            { "Body peeling", 45 },
-            { "Microdermabrasion", 30 }
-        };
-
-        using (SqlConnection connection = new SqlConnection(connectionString))
-        {
-            connection.Open();
-
-            // Retrieve employees
-            var employees = new List<(string Id, string TreatmentType)>();
-            string employeeQuery = "SELECT [Id], [Specialization] FROM [dbo].[Employees]";
-
-            using (SqlCommand employeeCommand = new SqlCommand(employeeQuery, connection))
-            using (SqlDataReader reader = employeeCommand.ExecuteReader())
-            {
-                while (reader.Read())
-                {
-                    employees.Add((reader["Id"].ToString(), reader["Specialization"].ToString()));
-                }
-            }
-
-            // Split employees into morning and afternoon shifts
-            int halfCount = employees.Count / 2;
-            var morningEmployees = employees.GetRange(0, halfCount);
-            var afternoonEmployees = employees.GetRange(halfCount, employees.Count - halfCount);
-
-            // Schedule appointments for each day
-            for (DateTime date = startDate; date < endDate; date = date.AddDays(1))
-            {
-                string dayOfWeek = date.DayOfWeek.ToString();
-
-                // Schedule morning appointments
-                ScheduleAppointments(connection, morningEmployees, date, morningStart, morningEnd, dayOfWeek, treatmentDurations);
-
-                // Schedule afternoon appointments
-                ScheduleAppointments(connection, afternoonEmployees, date, afternoonStart, afternoonEnd, dayOfWeek, treatmentDurations);
-            }
-        }
-    }
-
-    private void ScheduleAppointments(SqlConnection connection, List<(string Id, string TreatmentType)> employees, DateTime date, TimeSpan start, TimeSpan end, string dayOfWeek, Dictionary<string, int> treatmentDurations)
+        // 2. טבלת משך טיפולים
+        var durations = new List<(string Specialization, int Duration)>
     {
-        foreach (var employee in employees)
-        {
-            TimeSpan currentTime = start;
-            while (currentTime < end)
+        ("Facials", 30),
+        ("Laser hair removal", 30),
+        ("Manicure", 15),
+        ("Pedicure", 20),
+        ("Anti-aging treatments", 45),
+        ("Acne treatments", 20),
+        ("Body peeling", 45),
+        ("Microdermabrasion", 30),
+    };
+
+        // 4. רשימת עובדים (כולל RowNum לסיבוב משמרות)
+        var employees = _employee.GetAll()
+            .Select((e, idx) => new
             {
-                // Get the treatment duration for the current employee's specialization
-                if (treatmentDurations.TryGetValue(employee.TreatmentType, out int duration))
+                Employee = e,
+                RowNum = idx + 1
+            })
+            .ToList();
+
+        int totalEmployees = employees.Count;
+
+        // *** הוספת לולאה עבור כל יום בששת החודשים הקרובים ***
+        DateOnly startDate = DateOnly.FromDateTime(DateTime.Now);
+        DateOnly endDate = startDate.AddMonths(6);
+
+        for (DateOnly date = startDate; date < endDate; date = date.AddDays(1))
+        {
+            var dayName = CultureInfo.InvariantCulture.DateTimeFormat.GetDayName(date.DayOfWeek);
+
+            // 5. יצירת משמרות לכל עובד לפי החוקים
+            var schedule = new List<(string Shift, Employee Employee, string Specialization)>();
+
+            foreach (var emp in employees)
+            {
+                string shift;
+                if (dayName == "Friday")
+                    shift = "Morning";
+                else if (dayName == "Saturday")
+                    shift = "Closed";
+                else
+                    shift = ((emp.RowNum + date.Day) % 2 == 0) ? "Morning" : "Afternoon";
+
+                schedule.Add((shift, emp.Employee, emp.Employee.Specialization));
+            }
+
+            // 6. יצירת תורים זמינים לכל עובד ולכל טיפול (לפי משמרת וחוקי שעות)
+            foreach (var sch in schedule)
+            {
+                // דילוג על עובדים במשמרת סגורה או שבת
+                if (sch.Shift == "Closed" || dayName == "Saturday") continue;
+
+                var duration = durations.FirstOrDefault(d => d.Specialization == sch.Specialization).Duration;
+                if (duration == 0) continue; // אין משך טיפול מתאים
+
+                int maxSlots = 0;
+                TimeSpan start;
+                if (dayName == "Friday")
                 {
-                    // Check if the appointment fits within the working hours
-                    if (currentTime.Add(TimeSpan.FromMinutes(duration)) <= end)
+                    maxSlots = (int)Math.Floor(180.0 / duration); // 3 שעות
+                    start = new TimeSpan(9, 0, 0);
+                }
+                else // שאר השבוע
+                {
+                    if (sch.Shift == "Morning")
+                        start = new TimeSpan(9, 0, 0);
+                    else
+                        start = new TimeSpan(15, 0, 0);
+                    maxSlots = (int)Math.Floor(360.0 / duration); // 6 שעות
+                }
+
+                for (int n = 0; n < maxSlots; n++)
+                {
+                    var hour = start.Add(TimeSpan.FromMinutes(n * duration));
+                    _availableAppointment.Creat(new AvailableAppointment
                     {
-                        string sql = "INSERT INTO [dbo].[AvailableAppointments] ([Date], [Hour], [Day], [Duration], [EmployeeID], [TreatmentType]) " +
-                                     "VALUES (@Date, @Hour, @Day, @Duration, @EmployeeID, @TreatmentType)";
-
-                        using (SqlCommand command = new SqlCommand(sql, connection))
-                        {
-                            command.Parameters.AddWithValue("@Date", date);
-                            command.Parameters.AddWithValue("@Hour", currentTime);
-                            command.Parameters.AddWithValue("@Day", dayOfWeek);
-                            command.Parameters.AddWithValue("@Duration", duration);
-                            command.Parameters.AddWithValue("@EmployeeID", employee.Id);
-                            command.Parameters.AddWithValue("@TreatmentType", employee.TreatmentType);
-
-                            command.ExecuteNonQuery();
-                        }
-                    }
-                    // Move to the next appointment slot
-                    currentTime = currentTime.Add(TimeSpan.FromMinutes(duration));
+                        Date = date,
+                        Hour = TimeOnly.FromTimeSpan(hour),
+                        Day = dayName,
+                        Duration = duration,
+                        EmployeeId = sch.Employee.Id,
+                        TreatmentType = sch.Specialization
+                    });
                 }
             }
         }
     }
-
-
-    
-
-
 }

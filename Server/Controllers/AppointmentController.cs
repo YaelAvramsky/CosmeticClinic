@@ -34,6 +34,12 @@ namespace Server.Controllers
         {
             return bLAppointment.ReturnsAllAvailableAppointmentsOnASpecificDate(date);
         }
+
+        [HttpPost("Initialize the appointment schedule")]
+        public void InitializeAppointmentSchedule()
+        {
+            bLAppointment.InitializeAppointmentSchedule();
+        }
     }
  
 }
