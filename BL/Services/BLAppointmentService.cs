@@ -20,19 +20,12 @@ public class BLAppointmentService : IBLAppointment
     IUnavailableAppointment _unavailableAppointment;
     IAvailableAppointment _availableAppointment;
     IClientsToTreatment _clientsToTreatment;
-<<<<<<< HEAD
-=======
     IEmployee _employee;
->>>>>>> b71af1290b691606217213cf3544dd40fccd8126
     public BLAppointmentService(IDal dal)
     {
         _unavailableAppointment = dal.UnavailableAppointment;
         _clientsToTreatment = dal.ClientsToTreatment;
         _availableAppointment = dal.AvailableAppointment;
-<<<<<<< HEAD
-=======
-        _employee = dal.Employee;
->>>>>>> b71af1290b691606217213cf3544dd40fccd8126
     }
     public void CancelAnAppointment(UnavailableAppointment unavailableAppointment)
     {

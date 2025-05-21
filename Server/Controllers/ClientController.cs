@@ -14,7 +14,7 @@ namespace Server.Controllers
         {
             bLScheduledAppointment = bL.Client;
         }
-        [HttpGet]
+        [HttpGet("Get Appointments")]
         public ActionResult<List<ScheduledAppointment>> GetAppointments([FromQuery] string name, [FromQuery] string id)
         {
             return bLScheduledAppointment.AccessPermissionAndShowingAllAppointments(name, id);
