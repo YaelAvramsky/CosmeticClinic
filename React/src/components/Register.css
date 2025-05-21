@@ -3,11 +3,11 @@
     justify-content: center;
     align-items: center;
     height: 96vh; 
-    width: 28vw;
+    width: 30vw;
 }
 
 .button {
-    background-color: rgba(231, 194, 194, 0.5);
+    background-color: rgba(199, 158, 158, 0.5);
     border: none; 
     padding: 10px 20px; 
     cursor: pointer; 
@@ -16,5 +16,6 @@
     width: 24vw;
 }
 .button:hover {
-    background-color:  rgba(248, 223, 223, 0.5); /* צבע ורוד גם במצב ריחוף */
+    background-color:  rgba(141, 115, 115, 0.425); /* צבע ורוד גם במצב ריחוף */
+    color:black;
 }

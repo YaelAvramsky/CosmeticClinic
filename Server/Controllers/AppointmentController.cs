@@ -30,9 +30,9 @@ namespace Server.Controllers
             return bLAppointment.MakingAnAppointment(availableAppointment, clientId);
         }
         [HttpGet("available-appointments")]
-        public ActionResult<List<ScheduledAppointment>> GetAvalableAppointment(DateOnly date)
+        public ActionResult<List<ScheduledAppointment>> GetAvalableAppointment([FromQuery]DateOnly date,[FromQuery] string treatmentType)
         {
-            return bLAppointment.ReturnsAllAvailableAppointmentsOnASpecificDate(date);
+            return bLAppointment.ReturnsAllAvailableAppointmentsOnASpecificDate(date, treatmentType);
         }
 
         [HttpPost("Initialize the appointment schedule")]

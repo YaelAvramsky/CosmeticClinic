@@ -43,10 +43,12 @@ const Register = () => {
 
     const dispatch = useDispatch();
     const { id, FirstName, LastName, PhonNumber, Email, City } = useSelector((state) => state.register);
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const response = await AddNewClient(id, FirstName, LastName, PhonNumber, Email, City);
-
+        alert('You have successfully registered in our system');
     };
 
     return (

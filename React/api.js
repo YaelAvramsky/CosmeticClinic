@@ -53,6 +53,7 @@ export const fetchClient  = async (path) => {
         console.error('Error:', error);
     }
 };
+
 export const fetchClientPost = async (path, data) => {
     try {
         const response = await fetch(path, {

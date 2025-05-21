@@ -72,10 +72,10 @@ public class BLAppointmentService : IBLAppointment
         delete=_availableAppointment.Delete(availableAppointment);
         return create & delete;
     }
-    public List<ScheduledAppointment> ReturnsAllAvailableAppointmentsOnASpecificDate(DateOnly date)
+    public List<ScheduledAppointment> ReturnsAllAvailableAppointmentsOnASpecificDate(DateOnly date, string treatmentType)
     {
         return _availableAppointment.GetAll()
-          .Where(a => a.Date == date)
+          .Where(a => a.Date == date && a.TreatmentType.Equals(treatmentType))
           .Select(a => new ScheduledAppointment
           {
               Date = a.Date,

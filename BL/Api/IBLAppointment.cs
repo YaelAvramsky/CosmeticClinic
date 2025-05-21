@@ -14,7 +14,7 @@ namespace BL.Api
     {
         void CancelAnAppointment(UnavailableAppointment unavailableAppointment);
 
-        List<ScheduledAppointment> ReturnsAllAvailableAppointmentsOnASpecificDate(DateOnly date);
+        List<ScheduledAppointment> ReturnsAllAvailableAppointmentsOnASpecificDate(DateOnly date,string treatmentType);
 
         bool MakingAnAppointment(AvailableAppointment availableAppointment, string clientId);
 
