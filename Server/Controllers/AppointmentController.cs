@@ -27,7 +27,7 @@ namespace Server.Controllers
         [HttpPost("make-appointment")]
         public ActionResult<bool> MakeAppointment([FromBody] AvailableAppointment availableAppointment, string clientId)
         {
-            return bLAppointment.MakeAnAppointment(availableAppointment, clientId);
+            return bLAppointment.MakingAnAppointment(availableAppointment, clientId);
         }
         [HttpGet("available-appointments")]
         public ActionResult<List<ScheduledAppointment>> GetAvalableAppointment(DateOnly date)
