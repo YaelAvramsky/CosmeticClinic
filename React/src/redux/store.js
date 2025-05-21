@@ -1,7 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 import loginSlice from './LoginSlice';
-export const store = configureStore({
+import appointmentSlice from './ApppointmentSlice';
+ const Store = configureStore({
   reducer: {
     login: loginSlice,
-  },
-});
+    appointments:appointmentSlice
+  }
+})
+export default Store;

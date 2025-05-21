@@ -28,7 +28,6 @@ public class BLAppointmentService : IBLAppointment
         _unavailableAppointment = dal.UnavailableAppointment;
         _clientsToTreatment = dal.ClientsToTreatment;
         _availableAppointment = dal.AvailableAppointment;
-        _employee = dal.Employee;
     }
     public void CancelAnAppointment(UnavailableAppointment unavailableAppointment)
     {

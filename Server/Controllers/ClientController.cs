@@ -14,7 +14,7 @@ namespace Server.Controllers
         {
             bLScheduledAppointment = bL.Client;
         }
-        [HttpGet]
+        [HttpGet("Get Appointments")]
         public ActionResult<List<ScheduledAppointment>> GetAppointments([FromQuery] string name, [FromQuery] string id)
         {
             return bLScheduledAppointment.AccessPermissionAndShowingAllAppointments(name, id);
@@ -30,7 +30,7 @@ namespace Server.Controllers
             return bLScheduledAppointment.ChecksIfTheClientHasATreatmentPackage(clientId, treatmentType);
         }
         [HttpGet("check-client")]
-        public ActionResult<bool> GetThePersonsStatusClient(string name, string id)
+        public ActionResult<bool> GetThePersonsStatusClient([FromQuery] string name, [FromQuery] string id)
         {
             return bLScheduledAppointment.ChecksWhetherThePersonIsAClient(name, id);
         }
@@ -39,6 +39,7 @@ namespace Server.Controllers
         {
             return bLScheduledAppointment.ChecksWhetherThePersonIsAEmployee(name, id);
         }
+        
     }
 }
 
