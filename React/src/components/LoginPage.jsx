@@ -1,9 +1,8 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setName, setId } from '../redux/LoginSlice'; // הנתיב יכול להשתנות בהתאם למבנה שלך
+import backgroundImage from '../assets/clinic.jpg';
 import './LoginPage.css';
-import icon from '../assets/icon.png';
-import { Link } from 'react-router-dom';
 
 import {
   Box,
@@ -48,7 +47,7 @@ export default function LoginPage() {
   //  Navigate('/appointments')
   // };
 
-     const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
   e.preventDefault();
   if (!name || idNumber.length !== 9) {
     alert('Please enter your full name and a valid ID number (9 digits).');
@@ -68,8 +67,7 @@ export default function LoginPage() {
     <Box className="container">
       <Paper elevation={10} className="paper">
         <Avatar className="avatar">
-          <img src={icon} alt="Logo" style={{ width: '100%', height: '100%' }} />
-          {/* <SpaIcon fontSize="large" /> */}
+          <SpaIcon fontSize="large" />
         </Avatar>
         <Typography variant="h5" fontWeight="bold" color="#4A4A4A" gutterBottom>
           Clinic Login
@@ -106,14 +104,7 @@ export default function LoginPage() {
             Log In
           </Button>
         </form>
-     
-      <Typography variant="body2" sx={{ mt: 2 }}>
-        Don't have an account?{' '}
-        <Link to="/register" className="register-link">
-          Register here
-        </Link>
-      </Typography>
-       </Paper>
+      </Paper>
     </Box>
   );
 }

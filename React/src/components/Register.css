@@ -1,0 +1,20 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 96vh; 
+    width: 28vw;
+}
+
+.button {
+    background-color: rgba(231, 194, 194, 0.5);
+    border: none; 
+    padding: 10px 20px; 
+    cursor: pointer; 
+    opacity: 1; 
+    font-size: 20px;
+    width: 24vw;
+}
+.button:hover {
+    background-color:  rgba(248, 223, 223, 0.5); /* צבע ורוד גם במצב ריחוף */
+}
