@@ -26,11 +26,25 @@ public partial class DatabaseManager : DbContext
     public virtual DbSet<TreatmentsType> TreatmentsTypes { get; set; }
 
     public virtual DbSet<UnavailableAppointment> UnavailableAppointments { get; set; }
+    ////בסמינר///////////////////////////////////////////////////////////////////
+    //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+    //        => optionsBuilder.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=H:\\CosmeticClinic\\Dal\\DataBase\\DataBase.mdf;Integrated Security=True");
 
+    ////בבית/////////////////////////////////////////////////////////////////////
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=H:\\CosmeticClinic\\Dal\\DataBase\\DataBase.mdf;Integrated Security=True");
+        => optionsBuilder.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\יעל\\Desktop\\הנדסאים-שנה בבב\\CosmeticClinic\\Dal\\DataBase\\DataBase.mdf;Integrated Security=True");
 
+    ////קוד להתמודד עם שגיאות זמניות///////////////////////////////////////////
+    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //{
+    //    optionsBuilder.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=H:\\CosmeticClinic\\Dal\\DataBase\\DataBase.mdf;Integrated Security=True", options =>
+    //        options.EnableRetryOnFailure(
+    //            maxRetryCount: 5, // מספר ניסיונות חזרה
+    //            maxRetryDelay: TimeSpan.FromSeconds(30), // עיכוב בין ניסיונות
+    //            errorNumbersToAdd: null)); // ניתן לציין מספרי שגיאה נוספים לחזרה עליהם
+    //}
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<AvailableAppointment>(entity =>

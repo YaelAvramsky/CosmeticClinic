@@ -74,3 +74,24 @@ export const fetchClientPost = async (path, data) => {
         console.error('Error:', error);
     }
 };
+
+export const fetchAppointmentDelete = async (path, data) => {
+    try {
+        const response = await fetch(path, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data), // המרת הנתונים ל-JSON
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        return result; 
+    } catch (error) {
+        console.error('Error:', error);
+    }
+};

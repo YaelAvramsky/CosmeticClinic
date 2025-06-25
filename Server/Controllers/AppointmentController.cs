@@ -19,9 +19,9 @@ namespace Server.Controllers
             bLAppointment = bL.Appointment; 
         }
         [HttpDelete]
-        public void DeleteAppointment([FromBody] UnavailableAppointment unavailableAppointment)
+        public bool DeleteAppointment([FromBody] ScheduledAppointment scheduledAppointment)
         {
-             bLAppointment.CancelAnAppointment(unavailableAppointment);
+            return bLAppointment.CancelAnAppointment(scheduledAppointment);
         }
 
         [HttpPost("make-appointment")]

@@ -30,7 +30,7 @@ const GetAppointments=async(name,id)=>{
   return res;
 }
 
-export default function LoginPage() {
+const LoginPage=()=> {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -56,7 +56,7 @@ export default function LoginPage() {
   try {
     const appointments = await GetAppointments(name, idNumber);
     dispatch(setAppointments(appointments));
-    navigate('/appointments');
+    navigate('/userAppointments');
   } catch (error) {
     console.error('Error fetching appointments:', error);
     alert('Failed to fetch appointments: ' + error.message);
@@ -108,3 +108,5 @@ export default function LoginPage() {
     </Box>
   );
 }
+
+export default LoginPage;

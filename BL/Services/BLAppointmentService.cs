@@ -23,15 +23,29 @@ public class BLAppointmentService : IBLAppointment
     IAvailableAppointment _availableAppointment;
     IClientsToTreatment _clientsToTreatment;
     IEmployee _employee;
+    //////////////צריך להחזיק פה את
+    //////////////_treatmentsType
+    //////////////רק בגלל שיש בעיה שבאוביקט המקושר חוזר
+    //////////////NULL
+    ITreatmentsType _treatmentsType;
+    /////////////////////////////////////
     public BLAppointmentService(IDal dal)
     {
         _unavailableAppointment = dal.UnavailableAppointment;
         _clientsToTreatment = dal.ClientsToTreatment;
         _availableAppointment = dal.AvailableAppointment;
+        ///////////////////////////////////////////////////////////////
+        _treatmentsType = dal.TreatmentsType;
+        ///////////////////////////////////////////////////////////////
     }
-    public void CancelAnAppointment(UnavailableAppointment unavailableAppointment)
+    public bool CancelAnAppointment(ScheduledAppointment scheduledAppointment)
     {
-        var clientTreatment = _clientsToTreatment.GetAll().FirstOrDefault(t => t.ClientId.Equals(unavailableAppointment.ClientId) && t.TreatmentType.Type==unavailableAppointment.TreatmentType);
+        UnavailableAppointment unavailableAppointment = _unavailableAppointment.GetAll().Find(a => a.Id == scheduledAppointment.Id);
+        //var clientTreatment = _clientsToTreatment.GetAll().FirstOrDefault(t => t.ClientId.Equals(unavailableAppointment.ClientId) && t.TreatmentType.Type==unavailableAppointment.TreatmentType);
+        ///////////השורה הזאת עושה פעולה יותר ארוכה מהשורה המסולשת הנ"ל וכתבנו אותה בינתיים כי יש בעיה שבאוביקט המקושר חוזר 
+        ///////////NULL
+        var clientTreatment = _clientsToTreatment.GetAll().FirstOrDefault(t => t.ClientId.Equals(unavailableAppointment.ClientId) && _treatmentsType.GetAll().Find(tr=>tr.Id==t.TreatmentTypeId).Type.Equals(unavailableAppointment.TreatmentType));
+        /////////////////////////////////////////////////////////////////////////////////
         if (clientTreatment != null)
         {
             _clientsToTreatment.Update(new ClientsToTreatment()
@@ -52,6 +66,7 @@ public class BLAppointmentService : IBLAppointment
             EmployeeId = unavailableAppointment.EmployeeId,
             TreatmentType = unavailableAppointment.TreatmentType
         });
+        return true;
     }
 
   
@@ -78,6 +93,7 @@ public class BLAppointmentService : IBLAppointment
           .Where(a => a.Date == date && a.TreatmentType.Equals(treatmentType))
           .Select(a => new ScheduledAppointment
           {
+              Id = a.Id,
               Date = a.Date,
               Hour = a.Hour,
               Day = a.Day,

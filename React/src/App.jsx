@@ -7,9 +7,10 @@ import LoginPage from './components/LoginPage'
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
 import HomePage from './components/HomePage'
 import About from './components/About'
-import AllAppointments from './components/AllAppointments'
 import Register from './components/Register'
 import SelectDate from './components/SelectDate'
+import UserAppointments from './components/UserAppointments'
+import AllAvailableAppointments from './components/AllAvailableAppointments'
 
 
 function App() {
@@ -33,7 +34,8 @@ function App() {
             <Route path='/' element={<HomePage />} />
             <Route path='/about' element={<About />} />
             <Route path='/Login' element={<LoginPage />} />
-            <Route path='/appointments' element={<AllAppointments />} />
+            <Route path='/appointments' element={<AllAvailableAppointments />} />
+            <Route path='/userAppointments' element={<UserAppointments/>} />
             <Route path='/newAppointment' element={<SelectDate />} />
            <Route path='/sign up' element={<Register />} />
           </Routes>

@@ -51,6 +51,7 @@ public class BLClientService : IBLClient
             result=clientAppointments.Where(a => a.ClientId.Equals(id))
                 .Select(a => new ScheduledAppointment()
                 {
+                    Id = a.Id,
                     Date = a.Date,
                     Hour = a.Hour,
                     Day = a.Day,
@@ -68,6 +69,7 @@ public class BLClientService : IBLClient
                 .Select(a =>                               
                      new ScheduledAppointment()
                      {
+                         Id = a.Id,
                          Date = a.Date,
                          Hour = a.Hour,
                          Day = a.Day,

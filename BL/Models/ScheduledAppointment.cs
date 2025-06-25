@@ -8,6 +8,7 @@ namespace BL.Models;
 
 public class ScheduledAppointment
 {
+    public int Id { get; set; }
     public DateOnly Date { get; set; }
     public TimeOnly Hour { get; set; }
     public string Day { get; set; }
