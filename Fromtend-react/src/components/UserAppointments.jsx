@@ -1,4 +1,3 @@
-
 // import React from 'react';
 // import { useDispatch, useSelector } from "react-redux";
 // import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
@@ -79,38 +78,42 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     return { name, calories, fat, carbs, protein };
   }
   
-  const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-  ]; 
+  // const rows = [
+  //   createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
+  //   createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
+  //   createData('Eclair', 262, 16.0, 24, 6.0),
+  //   createData('Cupcake', 305, 3.7, 67, 4.3),
+  //   createData('Gingerbread', 356, 16.0, 49, 3.9),
+  // ]; 
 
   const UserAppointments = () => {
     const navigate=useNavigate();
-       
-        const arrAppointments = useSelector((state) => state.appointments.arrAppointment);
+    const arrAppointments = useSelector((state) => state.appointments.arrAppointment);
 
-        return (
-            <>
-            <div id='table' style={{height:'600px',overflow:'auto',width:'100vh'}}>
-            <TableContainer component={Paper} >
-              <Table sx={{ minWidth: '100%'}} aria-label="customized table">
-                <TableHead>
-                  <TableRow>
-                    <StyledTableCell>Date</StyledTableCell>
-                    <StyledTableCell align="right">Hour</StyledTableCell>
-                    <StyledTableCell align="right">Day</StyledTableCell>
-                    <StyledTableCell align="right">Name</StyledTableCell>
-                    <StyledTableCell align="right">Duration</StyledTableCell>
-                    <StyledTableCell align="right">Treatment Type</StyledTableCell>
-                    <StyledTableCell align="right">Cancel The Appointment</StyledTableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {arrAppointments.length > 0 &&
-                   arrAppointments.map((appointment, index)  => (
+    // Handler function for the new button
+    const handleNewButtonClick = () => {
+                navigate('/TreatmentType');
+    };
+
+    return (
+      <>
+        <div id='table' style={{height:'600px',overflow:'auto',width:'100vh'}}>
+          <TableContainer component={Paper} >
+            <Table sx={{ minWidth: '100%'}} aria-label="customized table">
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell>Date</StyledTableCell>
+                  <StyledTableCell align="right">Hour</StyledTableCell>
+                  <StyledTableCell align="right">Day</StyledTableCell>
+                  <StyledTableCell align="right">Name</StyledTableCell>
+                  <StyledTableCell align="right">Duration</StyledTableCell>
+                  <StyledTableCell align="right">Treatment Type</StyledTableCell>
+                  <StyledTableCell align="right">Cancel The Appointment</StyledTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {arrAppointments.length > 0 &&
+                  arrAppointments.map((appointment, index)  => (
                     <StyledTableRow key={index}>
                       <StyledTableCell component="th" scope="row">
                         {appointment.date}
@@ -120,15 +123,25 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
                       <StyledTableCell align="right">{appointment.name}</StyledTableCell>
                       <StyledTableCell align="right">{appointment.duration}</StyledTableCell>
                       <StyledTableCell align="right">{appointment.treatmentType}</StyledTableCell>
-                      <StyledTableCell align="right"><button onClick={async()=>await fetchAppointmentDelete(`http://localhost:5223/api/Appointment`,appointment)}>Cancel</button></StyledTableCell>
+                      <StyledTableCell align="right">
+                        <button onClick={async()=>await fetchAppointmentDelete(`http://localhost:5223/api/Appointment`,appointment)}>
+                          Cancel
+                        </button>
+                      </StyledTableCell>
                     </StyledTableRow>
                   ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-            </div>
-            </>
-          );
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </div>
+        {/* New button under the table */}
+        <div style={{ display: "flex", justifyContent: "center", marginTop: 24 }}>
+          <button onClick={handleNewButtonClick} style={{ padding: "12px 32px", borderRadius: "8px", background: "#f7cac9", color: "#7a3e3e", fontWeight: 600, border: "none", cursor: "pointer" }}>
+            New appointment
+          </button>
+        </div>
+      </>
+    );
   }
     
 export default UserAppointments;

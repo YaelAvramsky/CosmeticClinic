@@ -12,6 +12,8 @@ import SelectDate from './components/SelectDate'
 import UserAppointments from './components/UserAppointments'
 import AllAvailableAppointments from './components/AllAvailableAppointments'
 
+import TreatmentsButtons from './components/TreatmentsButtons'
+
 
 function App() {
 
@@ -27,6 +29,7 @@ function App() {
             <NavLink to="/Login" activeclassname="active">Login</NavLink>
             <NavLink to="/newAppointment" activeclassname="active">New Appointment</NavLink>
             <NavLink to="/sign up" activeclassname="active">Sign up</NavLink>
+
           </nav>
         </div>
         <div>
@@ -38,6 +41,7 @@ function App() {
             <Route path='/userAppointments' element={<UserAppointments/>} />
             <Route path='/newAppointment' element={<SelectDate />} />
            <Route path='/sign up' element={<Register />} />
+              <Route path='/TreatmentType' element={<TreatmentsButtons />} />
           </Routes>
         </div>
       </BrowserRouter>

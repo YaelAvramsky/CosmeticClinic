@@ -6,37 +6,39 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { fetchClient } from '../../api';
+import { getAvailableAppointments } from '../../api'; // הנתיב לפי מיקום הקובץ שלך
 import { setAppointments } from '../redux/ApppointmentSlice';
 
+const SelectDate = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [value, setValue] = React.useState(dayjs('2025-04-17'));
 
-const SelectDate=()=>{
-     const dispatch=useDispatch();
-     const navigate=useNavigate();
-
-      const [value, setValue] = React.useState(dayjs('2025-04-17'));
-    
-      return (
-        <div className="container">
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DemoContainer components={['DatePicker']}>
-            <DatePicker
-              label="Select Date"
-              value={value}
-              onChange={async(newValue) => {
+  return (
+    <div className="container">
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DemoContainer components={['DatePicker']}>
+          <DatePicker
+            label="Select Date"
+            value={value}
+            onChange={async (newValue) => {
               setValue(newValue);
+              if (!newValue) return;
               const formattedDate = newValue.format('YYYY-MM-DD');
-              const result=await fetchClient(`http://localhost:5223/api/Appointment/available-appointments?date=${encodeURIComponent(formattedDate)}&treatmentType=Laser Hair Removal`);
-              dispatch(setAppointments(result));
-              navigate('/appointments');
-
+              try {
+                const result = await getAvailableAppointments(formattedDate, 'Laser Hair Removal');
+                dispatch(setAppointments(result));
+                navigate('/appointments');
+              } catch (error) {
+                alert('Failed to fetch appointments');
+              }
             }}
-              format="DD/MM/YYYY" 
-            />
-          </DemoContainer>
-        </LocalizationProvider>
-        </div>
-      );
-    }
-  
+            format="DD/MM/YYYY"
+          />
+        </DemoContainer>
+      </LocalizationProvider>
+    </div>
+  );
+};
+
 export default SelectDate;
