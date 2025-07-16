@@ -33,7 +33,7 @@ body {
 
   height: 98vh;
 
-   background-image: url('./assets/clinic.jpg');  
+   /* background-image: url('./assets/clinic.jpg');   */
  background-size: cover;
  background-repeat: no-repeat;
  background-position: center;

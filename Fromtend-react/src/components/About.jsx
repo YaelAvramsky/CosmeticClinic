@@ -47,37 +47,38 @@ const gradientColors = [
 const About = () => (
   <div
     style={{
-      maxWidth: 900,
+      maxWidth: 1000,
       margin: "48px auto",
       padding: "48px 16px",
-      background: "linear-gradient(135deg, #fff1f1 0%, #ffe5d9 100%)",
+      background: "radial-gradient(circle at top left, #fffaf9 0%, #ffffff 100%)",
       borderRadius: "36px",
-      boxShadow: "0 12px 40px rgba(200,150,150,0.18)",
+      boxShadow: "0 12px 40px rgba(200,150,150,0.12)",
       display: "flex",
       flexDirection: "column",
-      alignItems: "center",
-      border: "2px solid #f7cac9"
+      alignItems: "center"
     }}
   >
     <h1
       style={{
         color: "#a05c5c",
         fontWeight: 800,
-        fontSize: "2.4rem",
+        fontSize: "2.6rem",
         marginBottom: 36,
         letterSpacing: "1.5px",
-        textShadow: "0 2px 8px #ffe5d9"
+        textAlign: "center",
+        textShadow: "0 2px 6px rgba(247,202,201,0.4)"
       }}
     >
-      Discover Our Treatments
+      ✨ Discover Our Treatments ✨
     </h1>
+
     <div
       style={{
         display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", // קטן יותר
-        gap: "18px", // פחות רווח
+        gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
+        gap: "20px",
         width: "100%",
-        maxWidth: 800
+        maxWidth: 900
       }}
     >
       {treatments.map((treatment, idx) => (
@@ -85,32 +86,31 @@ const About = () => (
           key={treatment}
           style={{
             background: gradientColors[idx % gradientColors.length],
-            borderRadius: "16px", // פחות עגלול
-            boxShadow: "0 2px 9px rgba(231,194,194,0.11)",
-            padding: "13px 8px", // פחות פדינג
+            borderRadius: "18px",
+            boxShadow: "0 3px 12px rgba(231,194,194,0.12)",
+            padding: "16px 12px",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            position: "relative",
-            overflow: "hidden",
-            border: "1.5px solid #ffe5d9",
-            transition: "transform 0.18s, box-shadow 0.18s",
-            minHeight: 80, // יותר נמוך
-            maxWidth: 190 // כל כרטיסיה צרה יותר
+            transition: "transform 0.2s ease, box-shadow 0.2s ease",
+            minHeight: 100,
+            maxWidth: 200,
+            margin: "0 auto",
+            textAlign: "center"
           }}
           onMouseOver={e => {
-            e.currentTarget.style.transform = "scale(1.045)";
-            e.currentTarget.style.boxShadow = "0 7px 20px rgba(231,194,194,0.18)";
+            e.currentTarget.style.transform = "scale(1.05)";
+            e.currentTarget.style.boxShadow = "0 8px 24px rgba(231,194,194,0.2)";
           }}
           onMouseOut={e => {
             e.currentTarget.style.transform = "scale(1)";
-            e.currentTarget.style.boxShadow = "0 2px 9px rgba(231,194,194,0.11)";
+            e.currentTarget.style.boxShadow = "0 3px 12px rgba(231,194,194,0.12)";
           }}
         >
           <span
             style={{
-              fontSize: "1.3em", // אימוג'י קטן יותר
-              marginBottom: 8,
+              fontSize: "1.4em",
+              marginBottom: 10,
               filter: "drop-shadow(0 1px 2px #ffe5d9)"
             }}
           >
@@ -120,21 +120,19 @@ const About = () => (
             style={{
               margin: 0,
               color: "#7a3e3e",
-              fontSize: "0.98em", // קטן
+              fontSize: "1em",
               fontWeight: 700,
-              letterSpacing: "0.5px",
-              textAlign: "center"
+              letterSpacing: "0.5px"
             }}
           >
             {treatment}
           </h2>
           <p
             style={{
-              margin: "7px 0 0 0",
+              marginTop: 8,
               color: "#4a2c2a",
-              fontSize: "0.87em", // קטן
-              textAlign: "center",
-              lineHeight: 1.4
+              fontSize: "0.9em",
+              lineHeight: 1.5
             }}
           >
             {treatmentDescriptions[treatment]}
@@ -142,7 +140,8 @@ const About = () => (
         </div>
       ))}
     </div>
-    <div style={{ marginTop: 48, color: "#b07a7a", fontSize: "1.05rem" }}>
+
+    <div style={{ marginTop: 48, color: "#b07a7a", fontSize: "1.05rem", textAlign: "center" }}>
       <span style={{ fontWeight: 600 }}>Blossom Beauty Clinic</span> – Where beauty meets care.
     </div>
   </div>
