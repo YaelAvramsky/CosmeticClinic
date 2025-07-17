@@ -1,3 +1,4 @@
+
 export const getAppointments = async (name, id) => {
     try {
         const url = `http://localhost:5223/api/Client/Get-Appointments?name=${encodeURIComponent(name)}&id=${encodeURIComponent(id)}`;
@@ -40,44 +41,45 @@ export const getAvailableAppointments = async (date, treatmentType) => {
         throw error;
     }
 };
-export const fetchClientPost = async (path, data) => {
-    try {
-        const response = await fetch(path, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data), // המרת הנתונים ל-JSON
-        });
+export const fetchClientPost = async (clientData) => {
+  try {
+    const query = new URLSearchParams(clientData).toString();
+    const response = await fetch(`http://localhost:5223/api/Client?${query}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(clientData),
+    });
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const result = await response.json();
-        return result; 
-    } catch (error) {
-        console.error('Error:', error);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error('Error posting client:', error);
+  }
 };
 
-export const fetchAppointmentDelete = async (path, data) => {
-    try {
-        const response = await fetch(path, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data), // המרת הנתונים ל-JSON
-        });
+export const fetchAppointmentDelete = async (appointment) => {
+  try {
+    const response = await fetch('http://localhost:5223/api/Appointment', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(appointment),
+    });
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const result = await response.json();
-        return result; 
-    } catch (error) {
-        console.error('Error:', error);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error('Error deleting appointment:', error);
+  }
 };

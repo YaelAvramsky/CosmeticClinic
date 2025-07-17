@@ -19,13 +19,7 @@ import {
 } from '@mui/material';
 import SpaIcon from '@mui/icons-material/Spa';
 import { fetchClientPost } from '../../api';
-import './Register.css';
-
-const AddNewClient = async (Id, FirstName, LastName, PhonNumber, Email, City) => {
-  const query = new URLSearchParams({ Id, FirstName, LastName, PhonNumber, Email, City }).toString();
-  const res = await fetchClientPost(`http://localhost:5223/api/Client?${query}`, {});
-  return res;
-};
+import './css/Register.css';
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -49,7 +43,10 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
-    await AddNewClient(id, FirstName, LastName, PhonNumber, Email, City);
+
+    const clientData = { Id: id, FirstName, LastName, PhonNumber, Email, City };
+    await fetchClientPost(clientData);
+
     setSuccessMessage('🎉 You have successfully registered in our system!');
     setTimeout(() => setSuccessMessage(''), 5000);
   };
@@ -147,7 +144,7 @@ const Register = () => {
               }
             }}
           >
-            Sign Up
+           Register
           </Button>
         </form>
       </Paper>

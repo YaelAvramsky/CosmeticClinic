@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import SpaIcon from '@mui/icons-material/Spa';
-import './HomePage.css';
+import './css/HomePage.css';
 
 const HomePage = () => {
   const navigate = useNavigate();

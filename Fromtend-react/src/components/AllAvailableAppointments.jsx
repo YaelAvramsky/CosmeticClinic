@@ -52,7 +52,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useSelector } from 'react-redux';
-import './AllAvailableAppointments.css'
+import './css/AllAvailableAppointments.css';
 import { useNavigate } from 'react-router-dom';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({

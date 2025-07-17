@@ -14,7 +14,7 @@ import {
   Avatar,
 } from '@mui/material';
 import SpaIcon from '@mui/icons-material/Spa';
-import './LoginPage.css';
+import './css/LoginPage.css';
 
 const LoginPage = () => {
   const dispatch = useDispatch();

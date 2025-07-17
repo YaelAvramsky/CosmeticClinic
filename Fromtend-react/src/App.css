@@ -65,14 +65,15 @@ nav {
 /* Style for the links */
 nav a {
   text-decoration: none;
-
   color: white;
-
   font-size: 23px;
+  transition: all 0.3s ease;
+}
 
- 
-} 
-
+nav a:hover {
+  color: white; /* שמירה על הצבע הלבן */
+  text-decoration: underline; /* קו תחתון בריחוף */
+}
 /* Hover effect for links */
 /* nav a:hover {
   color: #61dafb;

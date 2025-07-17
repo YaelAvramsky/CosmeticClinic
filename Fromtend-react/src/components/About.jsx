@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import './css/About.css';
 
 const treatments = [
   "Facial Treatment",
@@ -33,17 +34,6 @@ const treatmentEmojis = {
   "Microdermabrasion": "🔬"
 };
 
-const gradientColors = [
-  "linear-gradient(120deg, #fbeee6 0%, #f7cac9 100%)",
-  "linear-gradient(120deg, #ffe5d9 0%, #f7cac9 100%)",
-  "linear-gradient(120deg, #f7cac9 0%, #ffe5d9 100%)",
-  "linear-gradient(120deg, #fbeee6 0%, #ffe5d9 100%)",
-  "linear-gradient(120deg, #ffe5d9 0%, #fbeee6 100%)",
-  "linear-gradient(120deg, #f7cac9 0%, #fbeee6 100%)",
-  "linear-gradient(120deg, #fbeee6 0%, #f7cac9 100%)",
-  "linear-gradient(120deg, #ffe5d9 0%, #f7cac9 100%)"
-];
-
 const About = () => {
   const [activeIndex, setActiveIndex] = useState(null);
 
@@ -56,93 +46,21 @@ const About = () => {
   };
 
   return (
-    <div
-      style={{
-        maxWidth: 1000,
-        margin: "48px auto",
-        padding: "48px 16px",
-        background: "radial-gradient(circle at top left, #fffaf9 0%, #ffffff 100%)",
-        borderRadius: "36px",
-        boxShadow: "0 12px 40px rgba(200,150,150,0.12)",
-        position: "relative",
-        overflow: "visible"
-      }}
-    >
-      <h1
-        style={{
-          color: "#a05c5c",
-          fontWeight: 800,
-          fontSize: "2.6rem",
-          marginBottom: 36,
-          letterSpacing: "1.5px",
-          textAlign: "center",
-          textShadow: "0 2px 6px rgba(247,202,201,0.4)"
-        }}
-      >
-        ✨ Discover Our Treatments ✨
-      </h1>
+    <div className="about-container">
+      <h1 className="about-title">✨ Discover Our Treatments ✨</h1>
 
       {!Number.isInteger(activeIndex) && (
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
-            gap: "20px",
-            width: "100%",
-            maxWidth: 900,
-            margin: "0 auto"
-          }}
-        >
+        <div className="treatment-grid">
           {treatments.map((treatment, idx) => (
             <div
               key={treatment}
-              style={{
-                background: gradientColors[idx % gradientColors.length],
-                borderRadius: "18px",
-                boxShadow: "0 3px 12px rgba(231,194,194,0.12)",
-                padding: "16px 12px",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                transition: "transform 0.3s ease, box-shadow 0.3s ease",
-                minHeight: 100,
-                maxWidth: 200,
-                margin: "0 auto",
-                textAlign: "center",
-                cursor: "pointer"
-              }}
+              className="treatment-card"
+              style={{ background: `var(--gradient-${idx % 8})` }}
               onClick={() => setActiveIndex(idx)}
             >
-              <span
-                style={{
-                  fontSize: "1.4em",
-                  marginBottom: 10,
-                  filter: "drop-shadow(0 1px 2px #ffe5d9)"
-                }}
-              >
-                {treatmentEmojis[treatment]}
-              </span>
-              <h2
-                style={{
-                  margin: 0,
-                  color: "#7a3e3e",
-                  fontSize: "1em",
-                  fontWeight: 700,
-                  letterSpacing: "0.5px"
-                }}
-              >
-                {treatment}
-              </h2>
-              <p
-                style={{
-                  marginTop: 8,
-                  color: "#4a2c2a",
-                  fontSize: "0.9em",
-                  lineHeight: 1.5
-                }}
-              >
-                {treatmentDescriptions[treatment]}
-              </p>
+              <span className="treatment-emoji">{treatmentEmojis[treatment]}</span>
+              <h2 className="treatment-name">{treatment}</h2>
+              <p className="treatment-description">{treatmentDescriptions[treatment]}</p>
             </div>
           ))}
         </div>
@@ -150,109 +68,21 @@ const About = () => {
 
       {Number.isInteger(activeIndex) && (
         <div
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            background: gradientColors[activeIndex % gradientColors.length],
-            borderRadius: "36px",
-            boxShadow: "0 20px 60px rgba(231,194,194,0.3)",
-            padding: "48px 32px",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            textAlign: "center",
-            zIndex: 999,
-            transition: "all 0.3s ease"
-          }}
+          className="treatment-overlay"
+          style={{ background: `var(--gradient-${activeIndex % 8})` }}
         >
-          <button
-            onClick={() => setActiveIndex(null)}
-            style={{
-              position: "absolute",
-              top: 20,
-              right: 20,
-              background: "#fff",
-              border: "none",
-              borderRadius: "50%",
-              fontSize: "1.2rem",
-              padding: "8px 12px",
-              cursor: "pointer",
-              boxShadow: "0 2px 6px rgba(0,0,0,0.1)"
-            }}
-          >
-            ✕
-          </button>
+          <button className="close-button" onClick={() => setActiveIndex(null)}>✕</button>
+          <span className="overlay-emoji">{treatmentEmojis[treatments[activeIndex]]}</span>
+          <h2 className="overlay-title">{treatments[activeIndex]}</h2>
+          <p className="overlay-description">{treatmentDescriptions[treatments[activeIndex]]}</p>
 
-          <span
-            style={{
-              fontSize: "2.5em",
-              marginBottom: 20,
-              filter: "drop-shadow(0 2px 4px #ffe5d9)"
-            }}
-          >
-            {treatmentEmojis[treatments[activeIndex]]}
-          </span>
-          <h2
-            style={{
-              margin: 0,
-              color: "#7a3e3e",
-              fontSize: "2rem",
-              fontWeight: 700,
-              letterSpacing: "1px"
-            }}
-          >
-            {treatments[activeIndex]}
-          </h2>
-          <p
-            style={{
-              marginTop: 16,
-              color: "#4a2c2a",
-              fontSize: "1.1rem",
-              lineHeight: 1.6,
-              maxWidth: 600
-            }}
-          >
-            {treatmentDescriptions[treatments[activeIndex]]}
-          </p>
-
-          {/* Navigation Arrows */}
-          <div
-            style={{
-              position: "absolute",
-              top: "50%",
-              left: 20,
-              transform: "translateY(-50%)",
-              fontSize: "2rem",
-              cursor: "pointer",
-              color: "#7a3e3e"
-            }}
-            onClick={handlePrev}
-          >
-            ‹
-          </div>
-          <div
-            style={{
-              position: "absolute",
-              top: "50%",
-              right: 20,
-              transform: "translateY(-50%)",
-              fontSize: "2rem",
-              cursor: "pointer",
-                           color: "#7a3e3e"
-            }}
-            onClick={handleNext}
-          >
-            ›
-          </div>
+          <div className="arrow left" onClick={handlePrev}>‹</div>
+          <div className="arrow right" onClick={handleNext}>›</div>
         </div>
       )}
 
-      <div style={{ marginTop: 48, color: "#b07a7a", fontSize: "1.05rem", textAlign: "center" }}>
-        <span style={{ fontWeight: 600 }}>Blossom Beauty Clinic</span> – Where beauty meets care.
+      <div className="about-footer">
+        <span>Blossom Beauty Clinic</span> – Where beauty meets care.
       </div>
     </div>
   );

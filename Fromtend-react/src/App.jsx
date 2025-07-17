@@ -28,7 +28,7 @@ function App() {
             <NavLink to="/about" activeclassname="active">About</NavLink>
             <NavLink to="/Login" activeclassname="active">Login</NavLink>
             {/* <NavLink to="/newAppointment" activeclassname="active">New Appointment</NavLink> */}
-            <NavLink to="/sign up" activeclassname="active">Sign up</NavLink>
+            <NavLink to="/sign up" activeclassname="active">Register</NavLink>
 
           </nav>
         </div>
