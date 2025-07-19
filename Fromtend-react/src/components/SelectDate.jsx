@@ -8,12 +8,12 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getAvailableAppointments } from '../../api'; // הנתיב לפי מיקום הקובץ שלך
 import { setAppointments } from '../redux/ApppointmentSlice';
-
+import { useSelector } from 'react-redux';
 const SelectDate = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [value, setValue] = React.useState(dayjs('2025-04-17'));
-
+  const treatment = useSelector((state)=>state.treatments.treatment);
   return (
     <div className="container">
       <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -26,7 +26,7 @@ const SelectDate = () => {
               if (!newValue) return;
               const formattedDate = newValue.format('YYYY-MM-DD');
               try {
-                const result = await getAvailableAppointments(formattedDate, 'Laser Hair Removal');
+               const result = await getAvailableAppointments(formattedDate, treatment);
                 dispatch(setAppointments(result));
                 navigate('/appointments');
               } catch (error) {

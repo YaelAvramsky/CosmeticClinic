@@ -83,3 +83,27 @@ export const fetchAppointmentDelete = async (appointment) => {
     console.error('Error deleting appointment:', error);
   }
 };
+// src/api/clientTreatment.ts
+
+export const checkClientTreatmentPackage = async (clientId, treatmentType) => {
+  try {
+    const url = `http://localhost:5223/api/Client/check-treatment-package?clientId=${encodeURIComponent(clientId)}&treatmentType=${encodeURIComponent(treatmentType)}`;
+
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const result = await response.json();
+    return result; // מחזיר true או false לפי מה שהשרת נותן
+  } catch (error) {
+    console.error('Error checking treatment package:', error);
+    throw error;
+  }
+};

@@ -13,7 +13,7 @@ import UserAppointments from './components/UserAppointments'
 import AllAvailableAppointments from './components/AllAvailableAppointments'
 
 import TreatmentsButtons from './components/TreatmentsButtons'
-
+import Payment from './components/Payment'
 
 function App() {
 
@@ -40,8 +40,9 @@ function App() {
             <Route path='/appointments' element={<AllAvailableAppointments />} />
             <Route path='/userAppointments' element={<UserAppointments/>} />
             <Route path='/newAppointment' element={<SelectDate />} />
-           <Route path='/sign up' element={<Register />} />
-              <Route path='/TreatmentType' element={<TreatmentsButtons />} />
+            <Route path='/sign up' element={<Register />} />
+            <Route path='/TreatmentType' element={<TreatmentsButtons />} />
+            <Route path='/Payment' element={<Payment />} />
           </Routes>
         </div>
       </BrowserRouter>
