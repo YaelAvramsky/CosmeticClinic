@@ -14,7 +14,7 @@ const HomePage = () => {
         </div>
 
         <h1 className="welcome-text homepage-title">
-          Welcome to Blossom Beauty Clinic 🌸
+          Welcome to Blossom Beauty Clinic 
         </h1>
 
         <p className="homepage-description">

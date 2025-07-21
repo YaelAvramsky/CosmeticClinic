@@ -60,7 +60,7 @@ const Register = () => {
       background: "transparent"
     }}>
       <Paper elevation={10} sx={{
-        padding: 4,
+       padding: 2,
         borderRadius: 4,
         minWidth: 340,
         maxWidth: 380,
@@ -74,7 +74,7 @@ const Register = () => {
         <Typography variant="h5" fontWeight="bold" sx={{ color: "#ad1457" }} gutterBottom>
           Clinic Registration
         </Typography>
-        <Typography variant="body2" color="text.secondary" mb={2}>
+      <Typography variant="h6" color="text.secondary" mb={2}>
           Join our wellness experience
         </Typography>
 
@@ -107,7 +107,7 @@ const Register = () => {
               label={label}
               fullWidth
               variant="outlined"
-              margin="normal"
+             margin="dense" // במקום "normal"
               type={type}
               value={value}
               onChange={(e) => dispatch(action(e.target.value))}

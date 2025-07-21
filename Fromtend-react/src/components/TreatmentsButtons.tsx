@@ -52,9 +52,19 @@ const TreatmentsWithDate: React.FC = () => {
       console.error(error);
     }
   };
-
+console.log("Selected treatment:", selectedTreatment);
   return (
+
     <div className="treatments-container">
+      
+      <button
+        className="choose-date-btn"
+        onClick={handleCheckPackage}
+        disabled={!selectedTreatment} // הכפתור כבוי אם לא נבחר טיפול
+      >
+        Choose Date
+      </button>
+      <h2 className="treatments-title">Choose a Treatment</h2>
       {treatments.map((treatment) => (
         <button
           key={treatment}
@@ -67,9 +77,7 @@ const TreatmentsWithDate: React.FC = () => {
         </button>
       ))}
 
-      <button className="choose-date-btn" onClick={handleCheckPackage}>
-        Choose Date
-      </button>
+
     </div>
   );
 };
