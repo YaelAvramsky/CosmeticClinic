@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { getAvailableAppointments } from '../../api'; // הנתיב לפי מיקום הקובץ שלך
 import { setAppointments } from '../redux/ApppointmentSlice';
 import { useSelector } from 'react-redux';
+
 const SelectDate = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
